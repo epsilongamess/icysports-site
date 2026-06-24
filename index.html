@@ -74,13 +74,13 @@
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 0;
       min-width: 174px;
     }
 
     .brand img {
-      width: 38px;
-      height: 38px;
+      width: 128px;
+      height: auto;
       object-fit: contain;
       filter: drop-shadow(0 8px 20px rgba(49, 214, 239, 0.35));
     }
@@ -860,7 +860,7 @@
 
     @media (max-width: 760px) {
       .site-nav { padding: 14px 16px; }
-      .brand span { font-size: 22px; }
+      .brand img { width: 112px; }
       .nav-register { display: none; }
       .menu-toggle { display: inline-flex; }
       .hero { padding-top: 102px; }
@@ -893,8 +893,7 @@
 <body>
   <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
     <a class="brand" href="#top" aria-label="Icy Sports home">
-      <img src="GreenHockey_Icy_Logo.svg" alt="">
-      <span class="font-display">Icy Sports</span>
+      <img src="assets/icy-logo.png" alt="Icy Sports">
     </a>
 
     <div class="nav-pill" aria-label="Section navigation">
