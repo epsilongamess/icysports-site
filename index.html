@@ -517,6 +517,96 @@
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
+    .shot-rink {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 44px;
+      margin: 18px 0 4px;
+      border-radius: 999px;
+      border: 1px solid rgba(143, 232, 255, 0.22);
+      background:
+        linear-gradient(90deg, rgba(143,232,255,0.06), rgba(255,255,255,0.12), rgba(143,232,255,0.05)),
+        repeating-linear-gradient(90deg, transparent 0 18px, rgba(255,255,255,0.05) 18px 19px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .shot-goal {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      width: 30px;
+      height: 28px;
+      border: 3px solid rgba(255,255,255,0.78);
+      border-left: none;
+      border-radius: 0 9px 9px 0;
+      box-shadow: 0 0 18px rgba(143,232,255,0.28);
+    }
+
+    .shot-puck {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, #fff 0 12%, #95a8b7 13% 38%, #0b1725 39% 100%);
+      transform: translateY(-50%);
+      box-shadow: 0 0 20px rgba(143,232,255,0.48);
+    }
+
+    .register-card.shooting .shot-puck {
+      animation: shootPuck 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .register-card.shooting .register-cta {
+      background: linear-gradient(135deg, #31d6ef, #1c8dff);
+      box-shadow:
+        0 30px 62px rgba(49, 214, 239, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.36);
+    }
+
+    @keyframes shootPuck {
+      0% { left: 14px; transform: translateY(-50%) scale(1); }
+      68% { left: calc(100% - 38px); transform: translateY(-50%) scale(0.88); }
+      100% { left: calc(100% - 26px); transform: translateY(-50%) scale(0.2); opacity: 0; }
+    }
+
+    .ice-burst {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--ice);
+      transform: translateY(-50%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .register-card.shooting .ice-burst {
+      animation: goalBurst 0.62s 0.48s ease-out forwards;
+    }
+
+    @keyframes goalBurst {
+      0% { opacity: 0.95; transform: translateY(-50%) scale(0.2); box-shadow: 0 0 0 0 rgba(255,255,255,0.95); }
+      100% {
+        opacity: 0;
+        transform: translateY(-50%) scale(1.8);
+        box-shadow:
+          -42px -10px 0 rgba(143,232,255,0.85),
+          -28px 18px 0 rgba(255,255,255,0.85),
+          -12px -28px 0 rgba(255,122,47,0.8),
+          18px 16px 0 rgba(143,232,255,0.75),
+          34px -18px 0 rgba(255,255,255,0.75);
+      }
+    }
+
     .register-cta:hover {
       transform: translateY(-3px) scale(1.02);
       box-shadow:
@@ -931,7 +1021,7 @@
         <div class="hero-copy">
           <div class="eyebrow hero-anim hero-fade" style="animation-delay: 0.12s;">Bringing winter sports to India</div>
           <h1>
-            <span class="font-display hero-anim hero-reveal-text" style="animation-delay: 0.25s;">India's Ice Hockey</span>
+            <span class="font-display hero-anim hero-reveal-text" style="animation-delay: 0.25s;">India's Winter Sports</span>
             <span class="hero-anim hero-reveal-text" style="animation-delay: 0.42s;">Movement Starts Here</span>
           </h1>
           <p class="hero-subtitle hero-anim hero-fade" style="animation-delay: 0.68s;">
@@ -947,7 +1037,7 @@
         <div class="register-orbit hero-anim hero-fade" style="animation-delay: 0.92s;">
           <div class="orbit-ring one"></div>
           <div class="orbit-ring two"></div>
-          <a class="register-card" href="register/" aria-label="Open registration form">
+          <a class="register-card" href="register/" aria-label="Open registration form" id="heroRegisterCard">
             <div>
               <div class="register-icon" aria-hidden="true">
                 <svg viewBox="0 0 64 64" fill="none">
@@ -960,8 +1050,13 @@
               <h2>Register Your Interest</h2>
               <p>Open the input form, share your details, and receive the Icy Sports brochure directly in your inbox.</p>
             </div>
+            <span class="shot-rink" aria-hidden="true">
+              <span class="shot-puck"></span>
+              <span class="shot-goal"></span>
+              <span class="ice-burst"></span>
+            </span>
             <span class="register-cta">
-              Open Registration Form
+              <span class="register-cta-label">Shoot to Register</span>
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -1202,6 +1297,20 @@
     }, { threshold: 0.14 });
 
     document.querySelectorAll(".reveal-on-scroll").forEach((el) => observer.observe(el));
+
+    const heroRegisterCard = document.getElementById("heroRegisterCard");
+    if (heroRegisterCard) {
+      heroRegisterCard.addEventListener("click", (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        heroRegisterCard.classList.add("shooting");
+        const label = heroRegisterCard.querySelector(".register-cta-label");
+        if (label) label.textContent = "Goal! Opening Form";
+        setTimeout(() => {
+          window.location.href = heroRegisterCard.href;
+        }, 820);
+      });
+    }
 
     sizeCanvas();
     setNavState();
