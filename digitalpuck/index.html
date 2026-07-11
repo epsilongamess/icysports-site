@@ -156,6 +156,9 @@ label{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-tra
   width:100%;max-width:390px;padding:40px 36px 32px;
   animation:fadeInUp .55s cubic-bezier(.22,1,.36,1) both;
 }
+.reg-card.glass{
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
 .reg-logo{display:flex;align-items:center;gap:14px;margin-bottom:36px;}
 .reg-logo svg{width:46px;height:46px;flex-shrink:0;}
 .reg-logo-text h1{font-family:var(--font-num);font-size:20px;font-weight:900;letter-spacing:1.5px;color:var(--text);line-height:1.2;}
@@ -996,6 +999,9 @@ const STATE = {
     device:null,connected:false,prevCounts:null,
     trail:[],trailPos:{x:0,y:0},ctx:null
   },
+  bg: {
+    canvas:null,ctx:null,particles:[],frame:null,initialized:false
+  },
   histTab:'shot',
   prevScreen:'s-register',
   clockInterval:null,
@@ -1005,7 +1011,6 @@ const STATE = {
 // ── INIT ──
 window.addEventListener('DOMContentLoaded', () => {
   initSeedData();
-  initBgCanvas();
   initTrailCanvas();
   const saved = loadSavedPlayer();
   if (saved) {
@@ -1036,6 +1041,8 @@ function showScreen(id, save=true) {
   });
   const el = document.getElementById(id);
   if (el) el.classList.add('active');
+  if (id === 's-register') stopBgCanvas();
+  else startBgCanvas();
 }
 function goBack() { showScreen(STATE.prevScreen, false); }
 
@@ -1621,11 +1628,12 @@ function updateTrail(n) {
 function initBgCanvas() {
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
-  const particles = [];
+  const particles = STATE.bg.particles;
   const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
   resize();
   window.addEventListener('resize', resize);
 
+  particles.length = 0;
   for (let i = 0; i < 55; i++) {
     particles.push({
       x: Math.random() * canvas.width,
@@ -1636,32 +1644,49 @@ function initBgCanvas() {
       alpha: Math.random() * 0.5 + 0.15
     });
   }
+  STATE.bg.canvas = canvas;
+  STATE.bg.ctx = ctx;
+  STATE.bg.initialized = true;
+}
 
-  function draw() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach(p => {
-      p.x += p.vx; p.y += p.vy;
-      if (p.x < 0) p.x = canvas.width;
-      if (p.x > canvas.width) p.x = 0;
-      if (p.y < 0) p.y = canvas.height;
-      if (p.y > canvas.height) p.y = 0;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle = `rgba(44,255,5,${p.alpha})`;
-      ctx.fill();
-    });
-    // Grid lines
-    ctx.strokeStyle = 'rgba(44,255,5,0.025)';
-    ctx.lineWidth = 1;
-    for (let x = 0; x < canvas.width; x += 80) {
-      ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke();
-    }
-    for (let y = 0; y < canvas.height; y += 80) {
-      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke();
-    }
-    requestAnimationFrame(draw);
+function startBgCanvas() {
+  if (!STATE.bg.initialized) initBgCanvas();
+  if (STATE.bg.frame) return;
+  drawBgCanvas();
+}
+
+function stopBgCanvas() {
+  if (STATE.bg.frame) {
+    cancelAnimationFrame(STATE.bg.frame);
+    STATE.bg.frame = null;
   }
-  draw();
+}
+
+function drawBgCanvas() {
+  const {canvas,ctx,particles} = STATE.bg;
+  if (!canvas || !ctx) return;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = canvas.width;
+    if (p.x > canvas.width) p.x = 0;
+    if (p.y < 0) p.y = canvas.height;
+    if (p.y > canvas.height) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle = `rgba(44,255,5,${p.alpha})`;
+    ctx.fill();
+  });
+  // Grid lines
+  ctx.strokeStyle = 'rgba(44,255,5,0.025)';
+  ctx.lineWidth = 1;
+  for (let x = 0; x < canvas.width; x += 80) {
+    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke();
+  }
+  for (let y = 0; y < canvas.height; y += 80) {
+    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke();
+  }
+  STATE.bg.frame = requestAnimationFrame(drawBgCanvas);
 }
 </script>
 </body>
