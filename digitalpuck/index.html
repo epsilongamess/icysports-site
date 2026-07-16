@@ -330,12 +330,14 @@ label{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-tra
 .event-flash.ev-pass{border-color:rgba(0,170,255,0.5);box-shadow:0 0 20px rgba(0,170,255,0.12);}
 .event-flash.ev-stick{border-color:rgba(191,90,242,0.5);box-shadow:0 0 20px rgba(191,90,242,0.12);}
 .event-flash.ev-impact{border-color:rgba(255,69,58,0.5);box-shadow:0 0 20px rgba(255,69,58,0.12);}
+.event-flash.ev-motion{border-color:rgba(255,159,10,0.5);box-shadow:0 0 20px rgba(255,159,10,0.12);}
 .event-icon{width:40px;height:40px;flex-shrink:0;opacity:.9;}
 .event-text{flex:1;min-width:0;}
 .event-name{font-family:var(--font-num);font-size:13px;font-weight:700;color:var(--text);letter-spacing:.8px;text-transform:uppercase;}
 .event-val{font-size:24px;font-weight:800;color:var(--mint);font-family:var(--font-num);line-height:1.1;}
 .event-val.blue{color:var(--blue);}
 .event-val.purple{color:var(--purple);}
+.event-val.orange{color:var(--orange);}
 .event-val.red{color:var(--red);}
 .event-unit{font-size:12px;color:var(--muted);margin-top:2px;}
 
@@ -412,7 +414,8 @@ label{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-tra
 .hist-tab.active-pass{border-color:rgba(0,170,255,0.5);color:var(--blue);background:rgba(0,170,255,0.08);}
 .hist-tab.active-stick{border-color:rgba(191,90,242,0.5);color:#bf5af2;background:rgba(191,90,242,0.08);}
 .hist-tab.active-impact{border-color:rgba(255,69,58,0.5);color:var(--red);background:rgba(255,69,58,0.08);}
-.hist-tab:hover:not(.active-shot):not(.active-pass):not(.active-stick):not(.active-impact){border-color:rgba(255,255,255,0.15);color:var(--text);}
+.hist-tab.active-motion{border-color:rgba(255,159,10,0.5);color:var(--orange);background:rgba(255,159,10,0.08);}
+.hist-tab:hover:not(.active-shot):not(.active-pass):not(.active-stick):not(.active-impact):not(.active-motion){border-color:rgba(255,255,255,0.15);color:var(--text);}
 .hist-list{height:600px;overflow-y:auto;padding:4px;}
 .hist-list::-webkit-scrollbar{width:3px;}
 .hist-list::-webkit-scrollbar-track{background:transparent;}
@@ -427,6 +430,7 @@ label{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-tra
 .hist-item-dot.pass{background:var(--blue);}
 .hist-item-dot.stick{background:#bf5af2;}
 .hist-item-dot.impact{background:var(--red);}
+.hist-item-dot.motion{background:var(--orange);}
 .hist-item-main{min-width:0;}
 .hist-item-label{font-size:12px;font-weight:600;color:var(--text);}
 .hist-item-sub{font-size:10px;color:var(--muted);margin-top:1px;}
@@ -937,6 +941,7 @@ label{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-tra
               <button class="hist-tab" id="tab-pass" onclick="setHistTab('pass')">Passes</button>
               <button class="hist-tab" id="tab-stick" onclick="setHistTab('stick')">Stick</button>
               <button class="hist-tab" id="tab-impact" onclick="setHistTab('impact')">Impact</button>
+              <button class="hist-tab" id="tab-motion" onclick="setHistTab('motion')">Motion</button>
             </div>
           </div>
           <div class="hist-list" id="hist-list"><div class="hist-empty">No events yet</div></div>
@@ -1035,6 +1040,7 @@ const SVC_UUID  = '12345678-1234-1234-1234-123456789012';
 const CHAR_UUID = '87654321-4321-4321-4321-210987654321';
 const LB_KEY    = 'icetrack_lb_v3';
 const PLR_KEY   = 'icetrack_player_v2';
+const SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwy-9S35oWZFirJ0AiXiQoDhXn85cIneJVYmX_A8wiVBbYEPaLTILCF6FxZTCjhEv_Vig/exec';
 
 const SEED_PLAYERS = [
   {contact:'__seed_1',name:'Bot 1',puck:'HockeyPuck', totalPoints:2180,bestShotKmh:112,gamesPlayed:14,lastUpdated:Date.now()-86400000*3},
@@ -1045,10 +1051,11 @@ const SEED_PLAYERS = [
 
 // ── STATE ──
 const STATE = {
-  player: {name:'',contact:'',puckChoice:''},
+  player: {id:'',name:'',contact:'',puckChoice:''},
   session: {
     active:false,start:null,timer:null,
     events:[],bestShot:0,bestPassForce:0,maxSpin:0,
+    latestMotion:0,motionPeak:0,lastMotionSpeed:0,
     totalShotCount:0,totalPassCount:0,totalStickCount:0,totalImpactCount:0
   },
   puck: {
@@ -1068,6 +1075,7 @@ const STATE = {
 window.addEventListener('DOMContentLoaded', () => {
   initSeedData();
   initTrailCanvas();
+  syncLeaderboardFromSheets();
   const saved = loadSavedPlayer();
   if (saved) {
     document.getElementById('inp-name').value = saved.name || '';
@@ -1087,6 +1095,96 @@ function loadSavedPlayer() {
   catch { return null; }
 }
 
+function normalizePlayerPart(value) {
+  return String(value || '').trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function getPlayerId(name, contact) {
+  return `${normalizePlayerPart(name)}::${normalizePlayerPart(contact)}`;
+}
+
+function entryMatchesPlayer(entry, player = STATE.player) {
+  const playerId = player.id || getPlayerId(player.name, player.contact);
+  if (entry.id) return entry.id === playerId;
+  return normalizePlayerPart(entry.name) === normalizePlayerPart(player.name) &&
+    normalizePlayerPart(entry.contact) === normalizePlayerPart(player.contact);
+}
+
+function sheetsSyncEnabled() {
+  return SHEETS_WEB_APP_URL && SHEETS_WEB_APP_URL.startsWith('https://script.google.com/');
+}
+
+function requestSheets(action, params = {}) {
+  if (!sheetsSyncEnabled()) return Promise.resolve(null);
+  return new Promise((resolve, reject) => {
+    const callback = `sheetsCb_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    const script = document.createElement('script');
+    const url = new URL(SHEETS_WEB_APP_URL);
+    url.searchParams.set('action', action);
+    url.searchParams.set('callback', callback);
+    Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value));
+
+    const cleanup = () => {
+      delete window[callback];
+      script.remove();
+    };
+    const timer = setTimeout(() => {
+      cleanup();
+      reject(new Error('Google Sheets sync timed out'));
+    }, 8000);
+
+    window[callback] = data => {
+      clearTimeout(timer);
+      cleanup();
+      if (data?.ok === false) reject(new Error(data.error || 'Google Sheets sync failed'));
+      else resolve(data);
+    };
+    script.onerror = () => {
+      clearTimeout(timer);
+      cleanup();
+      reject(new Error('Could not reach Google Sheets sync'));
+    };
+    script.src = url.toString();
+    document.body.appendChild(script);
+  });
+}
+
+async function syncLeaderboardFromSheets() {
+  if (!sheetsSyncEnabled()) return loadLeaderboard();
+  try {
+    const data = await requestSheets('leaderboard');
+    if (Array.isArray(data?.entries)) {
+      saveLeaderboard(data.entries);
+      renderMiniLeaderboard('game-lb-list');
+      if (document.getElementById('s-leaderboard')?.classList.contains('active')) {
+        renderLeaderboardScreen();
+      }
+    }
+  } catch (e) {
+    console.warn(e.message);
+  }
+  return loadLeaderboard();
+}
+
+async function pushScoreToSheets(entry, sessionScore) {
+  if (!sheetsSyncEnabled()) return null;
+  const payload = JSON.stringify({entry, sessionScore});
+  try {
+    const data = await requestSheets('submit', {payload});
+    if (Array.isArray(data?.entries)) {
+      saveLeaderboard(data.entries);
+      renderMiniLeaderboard('game-lb-list');
+      if (document.getElementById('s-leaderboard')?.classList.contains('active')) {
+        renderLeaderboardScreen();
+      }
+    }
+    return data;
+  } catch (e) {
+    console.warn(e.message);
+    return null;
+  }
+}
+
 // ── NAVIGATION ──
 function showScreen(id, save=true) {
   if (save) STATE.prevScreen = document.querySelector('.screen.active')?.id || 's-register';
@@ -1099,6 +1197,7 @@ function showScreen(id, save=true) {
   if (el) el.classList.add('active');
   if (id === 's-register') stopBgCanvas();
   else startBgCanvas();
+  if (id === 's-leaderboard') syncLeaderboardFromSheets();
 }
 function goBack() { showScreen(STATE.prevScreen, false); }
 
@@ -1132,11 +1231,13 @@ function joinGame() {
     return;
   }
 
+  const playerId = getPlayerId(name, contact);
+  STATE.player.id = playerId;
   STATE.player.name = name;
   STATE.player.contact = contact;
   STATE.finishedOnce = false;
 
-  localStorage.setItem(PLR_KEY, JSON.stringify({name, contact, puckChoice: STATE.player.puckChoice}));
+  localStorage.setItem(PLR_KEY, JSON.stringify({id:playerId, name, contact, puckChoice: STATE.player.puckChoice}));
 
   initGameScreen();
   showScreen('s-game');
@@ -1283,6 +1384,22 @@ function recordEvent(type, n) {
   updateTrail(n);
 }
 
+function recordMotionPeak(speedKmh) {
+  if (speedKmh < 1) return;
+  const ev = {
+    type:'motion', ts:Date.now(),
+    speed:Math.round(speedKmh),
+    force:0,
+    spin:0,
+    intensity:0
+  };
+  STATE.session.events.push(ev);
+  STATE.session.latestMotion = ev.speed;
+  flashEvent('motion', ev);
+  if (STATE.histTab === 'motion') renderHistory();
+  updateTrail({motion:speedKmh / 18, event:'motion'});
+}
+
 // ── UI UPDATES ──
 function updateGameUI(n) {
   const speedKmh = Math.round((n.motion||0) * 18);
@@ -1290,6 +1407,14 @@ function updateGameUI(n) {
 
   setText('meter-speed', speedKmh);
   setText('meter-spin', spinRpm);
+
+  if (speedKmh >= STATE.session.motionPeak) {
+    STATE.session.motionPeak = speedKmh;
+  } else if (STATE.session.motionPeak >= 1 && STATE.session.lastMotionSpeed - speedKmh >= 2) {
+    recordMotionPeak(STATE.session.motionPeak);
+    STATE.session.motionPeak = speedKmh;
+  }
+  STATE.session.lastMotionSpeed = speedKmh;
 
   const sMax = 120, rMax = 600;
   document.getElementById('bar-speed').style.width = Math.min(speedKmh/sMax*100, 100) + '%';
@@ -1320,11 +1445,11 @@ function flashEvent(type, ev) {
   const unitEl = document.getElementById('ev-unit');
   flash.className = 'event-flash ev-' + type;
 
-  const icons = {shot:'icon-shot',pass:'icon-pass',stick:'icon-spin',impact:'icon-puck'};
+  const icons = {shot:'icon-shot',pass:'icon-pass',stick:'icon-spin',impact:'icon-puck',motion:'icon-shot'};
   const iconEl = flash.querySelector('.event-icon');
   iconEl.innerHTML = `<use href="#${icons[type]||'icon-puck'}"/>`;
 
-  const labels = {shot:'SHOT',pass:'PASS',stick:'STICK',impact:'IMPACT'};
+  const labels = {shot:'SHOT',pass:'PASS',stick:'STICK',impact:'IMPACT',motion:'MOTION'};
   nameEl.textContent = labels[type] || type.toUpperCase();
 
   if (type === 'shot') {
@@ -1339,6 +1464,10 @@ function flashEvent(type, ev) {
     valEl.textContent = ev.spin + ' rpm';
     valEl.className = 'event-val purple';
     unitEl.textContent = 'Stick handling detected';
+  } else if (type === 'motion') {
+    valEl.textContent = ev.speed + ' km/h';
+    valEl.className = 'event-val orange';
+    unitEl.textContent = 'Latest motion peak';
   } else {
     valEl.textContent = ev.force + ' N';
     valEl.className = 'event-val red';
@@ -1349,7 +1478,7 @@ function flashEvent(type, ev) {
 // ── HISTORY ──
 function setHistTab(type) {
   STATE.histTab = type;
-  ['shot','pass','stick','impact'].forEach(t => {
+  ['shot','pass','stick','impact','motion'].forEach(t => {
     const tab = document.getElementById('tab-' + t);
     if (!tab) return;
     tab.className = 'hist-tab' + (t === type ? (' active-' + t) : '');
@@ -1363,8 +1492,8 @@ function renderHistory() {
   if (!events.length) { list.innerHTML = '<div class="hist-empty">No events yet</div>'; return; }
   list.innerHTML = events.slice(0, 40).map(ev => {
     const age = fmtAge(Date.now() - ev.ts);
-    const typeLabels = {shot:`${ev.speed} km/h`,pass:`${ev.force} N`,stick:`${ev.spin} rpm`,impact:`${ev.force} N`};
-    const subLabels  = {shot:`Force ${ev.force}N`,pass:`Speed ${ev.speed} km/h`,stick:'Stick handling',impact:'High impact'};
+    const typeLabels = {shot:`${ev.speed} km/h`,pass:`${ev.force} N`,stick:`${ev.spin} rpm`,impact:`${ev.force} N`,motion:`${ev.speed} km/h`};
+    const subLabels  = {shot:`Force ${ev.force}N`,pass:`Speed ${ev.speed} km/h`,stick:'Stick handling',impact:'High impact',motion:'Latest motion peak'};
     return `<div class="hist-item">
       <div class="hist-item-dot ${ev.type}"></div>
       <div class="hist-item-main">
@@ -1429,8 +1558,12 @@ function resetSession(silent=false) {
   STATE.session.bestShot = 0;
   STATE.session.bestPassForce = 0;
   STATE.session.maxSpin = 0;
+  STATE.session.latestMotion = 0;
+  STATE.session.motionPeak = 0;
+  STATE.session.lastMotionSpeed = 0;
   STATE.session.active = false;
   STATE.session.start = null;
+  STATE.finishedOnce = false;
 
   // Clear UI
   ['cnt-shots','cnt-passes','cnt-stick','cnt-impact'].forEach(id => setText(id, '0'));
@@ -1464,7 +1597,7 @@ function finishGame() {
   STATE.finishedOnce = true;
 
   // Update leaderboard
-  updatePlayerRecord(score);
+  const updatedEntry = updatePlayerRecord(score);
 
   // Populate modal
   setText('modal-score', score);
@@ -1472,7 +1605,7 @@ function finishGame() {
   setText('modal-best-pass', STATE.session.bestPassForce.toFixed(1));
   setText('modal-best-spin', STATE.session.maxSpin);
 
-  const entry = loadLeaderboard().find(e => e.contact === STATE.player.contact);
+  const entry = updatedEntry || loadLeaderboard().find(e => entryMatchesPlayer(e));
   if (entry) {
     document.getElementById('modal-subtitle').textContent = `${STATE.player.name} • ${STATE.player.puckChoice}`;
     document.getElementById('lb-update-notice').textContent = `Total career points: ${entry.totalPoints} pts — leaderboard updated!`;
@@ -1480,6 +1613,7 @@ function finishGame() {
 
   document.getElementById('finish-modal').classList.add('open');
   renderMiniLeaderboard('game-lb-list');
+  pushScoreToSheets(updatedEntry, score);
 }
 
 // ── LEADERBOARD ──
@@ -1497,8 +1631,12 @@ function saveLeaderboard(entries) {
 }
 function updatePlayerRecord(sessionScore) {
   const entries = loadLeaderboard();
-  const idx = entries.findIndex(e => e.contact === STATE.player.contact);
+  const playerId = STATE.player.id || getPlayerId(STATE.player.name, STATE.player.contact);
+  const idx = entries.findIndex(e => e.id ? e.id === playerId : entryMatchesPlayer(e));
+  let updatedEntry;
   if (idx >= 0) {
+    entries[idx].id = playerId;
+    entries[idx].contact = STATE.player.contact;
     entries[idx].totalPoints += sessionScore;
     entries[idx].gamesPlayed = (entries[idx].gamesPlayed||0) + 1;
     if ((STATE.session.bestShot||0) > (entries[idx].bestShotKmh||0))
@@ -1506,8 +1644,10 @@ function updatePlayerRecord(sessionScore) {
     entries[idx].name = STATE.player.name;
     entries[idx].puck = STATE.player.puckChoice;
     entries[idx].lastUpdated = Date.now();
+    updatedEntry = entries[idx];
   } else {
-    entries.push({
+    updatedEntry = {
+      id: playerId,
       contact: STATE.player.contact,
       name: STATE.player.name,
       puck: STATE.player.puckChoice,
@@ -1515,25 +1655,26 @@ function updatePlayerRecord(sessionScore) {
       bestShotKmh: STATE.session.bestShot||0,
       gamesPlayed: 1,
       lastUpdated: Date.now()
-    });
+    };
+    entries.push(updatedEntry);
   }
   saveLeaderboard(entries);
+  return updatedEntry;
 }
 
 function renderMiniLeaderboard(containerId) {
   const container = document.getElementById(containerId);
   if (!container) return;
   const entries = loadLeaderboard().slice(0, 7);
-  const myContact = STATE.player.contact;
   if (!entries.length) { container.innerHTML = '<div class="hist-empty">No players yet</div>'; return; }
   container.innerHTML = entries.map((e, i) => {
     const rankClass = i === 0 ? 'r1' : i === 1 ? 'r2' : i === 2 ? 'r3' : '';
-    const isMe = e.contact === myContact;
+    const isMe = entryMatchesPlayer(e);
     return `<div class="mini-lb-row${isMe?' me':''}">
       <div class="mini-lb-rank ${rankClass}">${i+1}</div>
       <div>
         <div class="mini-lb-name">${e.name}${isMe?' (you)':''}</div>
-        <div class="mini-lb-puck">${e.puck}</div>
+        <div class="mini-lb-puck">${e.contact || 'No contact'} • ${e.puck}</div>
       </div>
       <div class="mini-lb-pts">${e.totalPoints}</div>
     </div>`;
@@ -1542,7 +1683,6 @@ function renderMiniLeaderboard(containerId) {
 
 function renderLeaderboardScreen() {
   const entries = loadLeaderboard();
-  const myContact = STATE.player.contact;
 
   // Podium
   const podium = document.getElementById('lb-podium');
@@ -1555,12 +1695,12 @@ function renderLeaderboardScreen() {
     if (!e) return '';
     const cls = podiumClasses[i];
     const bid = badgeIds[i];
-    const isMe = e.contact === myContact;
+    const isMe = entryMatchesPlayer(e);
     return `<div class="podium-card ${cls}${isMe?' is-me':''}">
       <svg class="podium-badge" viewBox="${bid==='icon-crown'?'0 0 32 28':bid==='icon-shield'?'0 0 28 32':'0 0 32 32'}"><use href="#${bid}"/></svg>
       <div class="podium-name">${e.name}</div>
       <div class="podium-pts">${e.totalPoints}</div>
-      <div class="podium-sub">${e.puck} · ${e.gamesPlayed} games</div>
+      <div class="podium-sub">${e.contact || 'No contact'} · ${e.puck} · ${e.gamesPlayed} games</div>
       <div class="podium-plinth">${cls==='p1'?'1':cls==='p2'?'2':'3'}</div>
     </div>`;
   }).join('');
@@ -1570,7 +1710,7 @@ function renderLeaderboardScreen() {
   tbody.innerHTML = entries.map((e, i) => {
     const rankCls = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'';
     const rankNumCls = i===0?'r1':i===1?'r2':i===2?'r3':'';
-    const isMe = e.contact === myContact;
+    const isMe = entryMatchesPlayer(e);
     const badgeMap = {0:'icon-crown',1:'icon-shield',2:'icon-star'};
     const badgeVB  = {0:'0 0 32 28',1:'0 0 28 32',2:'0 0 32 32'};
     const rankBadge = i < 3
@@ -1580,7 +1720,7 @@ function renderLeaderboardScreen() {
       <div class="lb-rank-cell"><span class="lb-rank-num ${rankNumCls}">${i+1}</span>${rankBadge}</div>
       <div class="lb-name-cell">
         <div class="lb-player-name">${e.name}${isMe?' ★':''}</div>
-        <div class="lb-player-puck">${e.puck}</div>
+        <div class="lb-player-puck">${e.contact || 'No contact'} · ${e.puck}</div>
       </div>
       <div style="font-size:12px;color:var(--muted)">${e.puck}</div>
       <div class="lb-pts-cell">${e.totalPoints}</div>
@@ -1600,6 +1740,7 @@ function playAgain() {
 function viewLeaderboard() {
   document.getElementById('finish-modal').classList.remove('open');
   renderLeaderboardScreen();
+  syncLeaderboardFromSheets();
   showScreen('s-leaderboard');
 }
 function logOut() {
@@ -1608,7 +1749,7 @@ function logOut() {
   if (STATE.puck.device?.gatt?.connected) STATE.puck.device.gatt.disconnect();
   STATE.puck.device = null;
   STATE.puck.connected = false;
-  STATE.player = {name:'',contact:'',puckChoice:''};
+  STATE.player = {id:'',name:'',contact:'',puckChoice:''};
   STATE.finishedOnce = false;
   setPuckDisconnected();
   showScreen('s-register');
