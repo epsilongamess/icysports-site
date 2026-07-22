@@ -14,7 +14,10 @@ button {
 }
 
 @media (max-width: 600px) {
-  .hero-background,
+  .hero-background {
+    display: none;
+  }
+
   .hero-overlay {
     position: absolute;
     inset: 0;
@@ -22,11 +25,13 @@ button {
     height: 100%;
   }
 
-  .hero-background {
-    object-position: 64% center;
-  }
-
   .registration-hero {
+    isolation: isolate;
+    min-height: 0;
+    background-image: url("assets/hockey-hero.png");
+    background-position: 64% center;
+    background-size: cover;
+    background-repeat: no-repeat;
     padding:
       max(10px, env(safe-area-inset-top))
       max(10px, env(safe-area-inset-right))
@@ -40,6 +45,10 @@ button {
   .glass-form {
     min-width: 0;
     max-width: 100%;
+  }
+
+  .hero-layout {
+    margin-bottom: 0;
   }
 
   .site-header {
@@ -129,7 +138,7 @@ button {
 .about,
 footer {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 @media (min-width: 601px) and (max-width: 1024px) {
