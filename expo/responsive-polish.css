@@ -1,0 +1,164 @@
+/* Mobile-first responsive refinements for registration-heavy traffic. */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img,
+input,
+select,
+button {
+  max-width: 100%;
+}
+
+@media (max-width: 600px) {
+  .registration-hero {
+    padding:
+      max(10px, env(safe-area-inset-top))
+      max(10px, env(safe-area-inset-right))
+      max(28px, env(safe-area-inset-bottom))
+      max(10px, env(safe-area-inset-left));
+  }
+
+  .site-header,
+  .hero-layout,
+  .hero-copy,
+  .glass-form {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .site-header {
+    height: 52px;
+  }
+
+  .brand {
+    width: min(204px, 64vw);
+    height: 46px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(46px, 15vw, 62px);
+    overflow-wrap: normal;
+  }
+
+  .glass-form {
+    padding: 20px 16px;
+  }
+
+  .form-heading {
+    gap: 12px;
+  }
+
+  .form-heading h2 {
+    font-size: clamp(32px, 10vw, 40px);
+  }
+
+  .form-heading > span {
+    flex: 0 0 92px;
+    line-height: 1.4;
+  }
+
+  .two-col,
+  .optional-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  input,
+  select {
+    min-height: 52px;
+    font-size: 16px; /* Prevents automatic input zoom on iOS. */
+  }
+
+  .field label,
+  .contact-group legend {
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  .consent {
+    gap: 12px;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .check {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+  }
+
+  .submit-button {
+    min-height: 58px;
+    font-size: 12px;
+  }
+
+  .form-status,
+  .error {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .about {
+    padding-right: max(22px, env(safe-area-inset-right));
+    padding-left: max(22px, env(safe-area-inset-left));
+  }
+
+  footer {
+    padding-right: max(20px, env(safe-area-inset-right));
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+    padding-left: max(20px, env(safe-area-inset-left));
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .registration-hero {
+    padding: 18px clamp(18px, 4vw, 42px) 42px;
+  }
+
+  .hero-layout {
+    width: min(760px, 100%);
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .hero-copy {
+    max-width: 680px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(68px, 11vw, 96px);
+  }
+
+  .glass-form {
+    width: 100%;
+  }
+
+  input,
+  select {
+    font-size: 16px;
+  }
+
+  .about {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    padding: 90px clamp(32px, 7vw, 72px);
+  }
+
+  footer {
+    grid-template-columns: minmax(220px, 300px) 1fr auto;
+  }
+}
+
+@media (min-width: 1025px) and (max-height: 820px) {
+  .registration-hero {
+    min-height: 820px;
+  }
+
+  .hero-layout {
+    margin-top: 18px;
+  }
+}

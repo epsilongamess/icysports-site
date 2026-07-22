@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#061426">
+  <meta name="description" content="Register your interest in upcoming ice hockey awareness events.">
+  <title>ICY Sports — Ice Hockey Awareness Registration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="registration.css">
+  <link rel="stylesheet" href="background-visibility.css">
+  <link rel="stylesheet" href="responsive-polish.css">
+</head>
+<body>
+  <main>
+    <section class="registration-hero" id="register">
+      <img class="hero-background" src="assets/hockey-hero.png" alt="Ice hockey player skating across a modern arena">
+      <div class="hero-overlay"></div>
+
+      <header class="site-header">
+        <a class="brand" href="#register" aria-label="ICY Sports and Green Hockey home">
+          <img src="icyxGH_logo-complete.png" alt="ICY Sports and Green Hockey">
+        </a>
+        <a class="learn-link" href="#about">About the initiative <span aria-hidden="true">↓</span></a>
+      </header>
+
+      <div class="hero-layout">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> Open registration</p>
+          <h1>YOUR FIRST<br>STEP ONTO<br><em>THE ICE.</em></h1>
+          <p>Register your interest in upcoming sports and ice hockey awareness events. No previous experience is needed.</p>
+          <div class="trust-line">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.7 2.9 8.7 7 10 4.1-1.3 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+            <span>Your details are used only for relevant event updates.</span>
+          </div>
+        </div>
+
+        <form class="glass-form" id="signupForm" novalidate>
+          <div class="form-heading">
+            <div><p>Registration form</p><h2>COUNT ME IN</h2></div>
+            <span>Fields marked * are required</span>
+          </div>
+
+          <div class="field full">
+            <label for="name">Your name *</label>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="Full name" required>
+            <small class="error"></small>
+          </div>
+
+          <fieldset class="contact-group">
+            <legend>How can we reach you? * <small>Add at least one</small></legend>
+            <div class="two-col">
+              <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com"><small class="error"></small></div>
+              <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+91 00000 00000"><small class="error"></small></div>
+            </div>
+            <small class="error contact-error"></small>
+          </fieldset>
+
+          <div class="two-col optional-row">
+            <div class="field"><label for="city">City <span>Optional</span></label><input id="city" name="city" type="text" autocomplete="address-level2" placeholder="Your city"></div>
+            <div class="field"><label for="profession">Profession <span>Optional</span></label><input id="profession" name="profession" type="text" autocomplete="organization-title" placeholder="Student, professional…"></div>
+          </div>
+
+          <div class="field full">
+            <label for="interest">Which sport interests you most?</label>
+            <div class="select-wrap"><select id="interest" name="interest"><option value="">Choose a sport</option><option>Ice hockey</option><option>Field hockey</option><option>Football</option><option>Cricket</option><option>Basketball</option><option>Skating</option><option>Other</option></select><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></div>
+          </div>
+
+          <label class="consent"><input type="checkbox" name="consent" required><span class="check"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10 4 4 8-8"/></svg></span><span>I agree to be contacted about relevant ICY Sports and ice hockey awareness events. *</span></label>
+          <button class="submit-button" type="submit"><span>Register my interest</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <a class="scroll-cue" href="#about"><span>Discover more</span><i></i></a>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about-heading reveal"><p class="eyebrow dark"><span></span> More than a sport</p><h2>DISCOVER<br><em>YOUR GAME.</em></h2></div>
+      <div class="about-content">
+        <p class="about-lead reveal">A simple introduction to the speed, skill and community of ice hockey.</p>
+        <div class="benefits">
+          <article class="reveal"><b>01</b><div><h3>BE INFORMED</h3><p>Hear first about upcoming awareness events and opportunities near you.</p></div></article>
+          <article class="reveal"><b>02</b><div><h3>MEET THE SPORT</h3><p>Understand the game, its culture and how you can get involved.</p></div></article>
+          <article class="reveal"><b>03</b><div><h3>NO EXPERIENCE NEEDED</h3><p>Come with curiosity. We’ll help you discover the next step.</p></div></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><img src="icyxGH_logo-complete.png" alt="ICY Sports and Green Hockey"><p>Building awareness. Opening the ice.</p><a href="#register">Register ↑</a></footer>
+  <script src="script.js"></script>
+</body>
+</html>

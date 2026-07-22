@@ -1,0 +1,33 @@
+/* Brighter photographic backdrop while retaining readable glass surfaces. */
+.hero-overlay {
+  background:
+    linear-gradient(90deg, rgba(2, 10, 20, 0.82) 0%, rgba(2, 10, 20, 0.50) 46%, rgba(2, 10, 20, 0.10) 78%),
+    linear-gradient(0deg, rgba(2, 10, 20, 0.38), transparent 56%);
+}
+
+.glass-form {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(7, 22, 42, 0.43));
+  backdrop-filter: blur(16px) saturate(125%);
+  -webkit-backdrop-filter: blur(16px) saturate(125%);
+}
+
+.submit-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .hero-overlay {
+    background: linear-gradient(
+      rgba(2, 10, 20, 0.34),
+      rgba(2, 10, 20, 0.69) 31%,
+      rgba(2, 10, 20, 0.84)
+    );
+  }
+
+  .glass-form {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(4, 17, 32, 0.61));
+    backdrop-filter: blur(14px) saturate(125%);
+    -webkit-backdrop-filter: blur(14px) saturate(125%);
+  }
+}
