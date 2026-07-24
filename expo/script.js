@@ -14,6 +14,18 @@ reveals.forEach((item) => observer.observe(item));
 const form = document.getElementById('signupForm');
 const status = form.querySelector('.form-status');
 const field = (id) => document.getElementById(id);
+const dateInputs = [...form.querySelectorAll('input[name="preferredDates"]')];
+const allDates = document.getElementById('allDates');
+
+allDates.addEventListener('change', () => {
+  dateInputs.forEach((input) => { input.checked = allDates.checked; });
+});
+
+dateInputs.forEach((input) => {
+  input.addEventListener('change', () => {
+    allDates.checked = dateInputs.every((date) => date.checked);
+  });
+});
 
 function setError(input, message) {
   input.classList.toggle('invalid', Boolean(message));
@@ -28,10 +40,12 @@ form.addEventListener('submit', async (event) => {
   const phone = field('phone');
   const consent = form.elements.consent;
   const contactError = form.querySelector('.contact-error');
+  const dateError = form.querySelector('.date-error');
   let valid = true;
 
   [name, email, phone].forEach((input) => setError(input, ''));
   contactError.textContent = '';
+  dateError.textContent = '';
   status.textContent = '';
   status.className = 'form-status';
 
@@ -54,6 +68,11 @@ form.addEventListener('submit', async (event) => {
   if (!consent.checked) {
     status.textContent = 'Please confirm that we may contact you.';
     status.classList.add('error-status');
+    valid = false;
+  }
+  const selectedDates = dateInputs.filter((input) => input.checked).map((input) => input.value);
+  if (selectedDates.length === 0) {
+    dateError.textContent = 'Please select at least one date.';
     valid = false;
   }
   if (!valid) {
@@ -79,7 +98,7 @@ form.addEventListener('submit', async (event) => {
     phone: phone.value.trim(),
     city: field('city').value.trim(),
     profession: field('profession').value.trim(),
-    interest: field('interest').value,
+    preferredDates: selectedDates.join(', '),
     consent: String(consent.checked)
   });
 
