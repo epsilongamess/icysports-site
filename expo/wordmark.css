@@ -1,0 +1,77 @@
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  width: auto;
+  height: auto;
+  padding: 0;
+  background: transparent;
+  overflow: visible;
+  white-space: nowrap;
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-size: clamp(20px, 2vw, 29px);
+  font-style: italic;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.icy-name,
+.brand-x,
+.green-name i {
+  color: #fff;
+}
+
+.icy-name {
+  font-style: normal;
+  letter-spacing: 0.06em;
+}
+
+.brand-x {
+  font-family: Inter, Arial, sans-serif;
+  font-size: 0.7em;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.green-name {
+  display: inline-flex;
+  align-items: baseline;
+  letter-spacing: 0.015em;
+}
+
+.green-name b {
+  color: #20ec59;
+  font-weight: 800;
+}
+
+.green-name i {
+  font-weight: 800;
+}
+
+.footer-wordmark {
+  justify-self: start;
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    justify-content: center;
+  }
+
+  .brand.wordmark {
+    margin: 0 auto;
+    font-size: clamp(17px, 5.8vw, 23px);
+    gap: 7px;
+  }
+
+  .footer-wordmark {
+    justify-self: center;
+    font-size: clamp(19px, 6.2vw, 25px);
+  }
+
+  footer p,
+  footer > a {
+    text-align: center;
+  }
+}
