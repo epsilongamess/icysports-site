@@ -15,17 +15,6 @@ const form = document.getElementById('signupForm');
 const status = form.querySelector('.form-status');
 const field = (id) => document.getElementById(id);
 const dateInputs = [...form.querySelectorAll('input[name="preferredDates"]')];
-const allDates = document.getElementById('allDates');
-
-allDates.addEventListener('change', () => {
-  dateInputs.forEach((input) => { input.checked = allDates.checked; });
-});
-
-dateInputs.forEach((input) => {
-  input.addEventListener('change', () => {
-    allDates.checked = dateInputs.every((date) => date.checked);
-  });
-});
 
 function setError(input, message) {
   input.classList.toggle('invalid', Boolean(message));
@@ -96,8 +85,6 @@ form.addEventListener('submit', async (event) => {
     name: name.value.trim(),
     email: email.value.trim(),
     phone: phone.value.trim(),
-    city: field('city').value.trim(),
-    profession: field('profession').value.trim(),
     preferredDates: selectedDates.join(', '),
     consent: String(consent.checked)
   });
