@@ -340,6 +340,12 @@ label{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-tra
 .event-val.orange{color:var(--orange);}
 .event-val.red{color:var(--red);}
 .event-unit{font-size:12px;color:var(--muted);margin-top:2px;}
+.event-celebration{
+  display:none;margin-top:8px;padding:7px 10px;border-radius:8px;
+  background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.25);
+  color:var(--gold);font-family:var(--font-num);font-size:10px;font-weight:700;letter-spacing:.6px;
+}
+.event-celebration.show{display:block;animation:numPop .35s ease;}
 
 /* Count grid */
 .count-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
@@ -410,12 +416,13 @@ label{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-tra
   padding:6px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;font-family:var(--font);
   color:var(--muted);cursor:pointer;transition:all 180ms;white-space:nowrap;
 }
+.hist-tab.active-all{border-color:rgba(255,255,255,0.35);color:var(--text);background:rgba(255,255,255,0.08);}
 .hist-tab.active-shot{border-color:rgba(44,255,5,0.5);color:var(--mint);background:rgba(44,255,5,0.08);}
 .hist-tab.active-pass{border-color:rgba(0,170,255,0.5);color:var(--blue);background:rgba(0,170,255,0.08);}
 .hist-tab.active-stick{border-color:rgba(191,90,242,0.5);color:#bf5af2;background:rgba(191,90,242,0.08);}
 .hist-tab.active-hardshot{border-color:rgba(255,69,58,0.5);color:var(--red);background:rgba(255,69,58,0.08);}
 .hist-tab.active-motion{border-color:rgba(255,159,10,0.5);color:var(--orange);background:rgba(255,159,10,0.08);}
-.hist-tab:hover:not(.active-shot):not(.active-pass):not(.active-stick):not(.active-hardshot):not(.active-motion){border-color:rgba(255,255,255,0.15);color:var(--text);}
+.hist-tab:hover:not(.active-all):not(.active-shot):not(.active-pass):not(.active-stick):not(.active-hardshot):not(.active-motion){border-color:rgba(255,255,255,0.15);color:var(--text);}
 .hist-list{height:600px;overflow-y:auto;padding:4px;}
 .hist-list::-webkit-scrollbar{width:3px;}
 .hist-list::-webkit-scrollbar-track{background:transparent;}
@@ -858,6 +865,7 @@ label{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-tra
           <div class="event-name" id="ev-name">READY</div>
           <div class="event-val" id="ev-val">—</div>
           <div class="event-unit" id="ev-unit">Waiting for puck data</div>
+          <div class="event-celebration" id="event-celebration"></div>
         </div>
       </div>
       <!-- Counts -->
@@ -917,6 +925,7 @@ label{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-tra
       <div style="background:rgba(44,255,5,0.06);border:1px solid rgba(44,255,5,0.2);border-radius:12px;padding:16px 18px;text-align:center;">
         <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mint);margin-bottom:6px;">Session Points</div>
         <div style="font-family:var(--font-num);font-size:34px;font-weight:900;color:var(--text);" id="session-pts">0</div>
+        <div style="font-size:9px;color:var(--muted);margin-top:8px;line-height:1.6;">Shot +10 &nbsp;•&nbsp; Pass +8 &nbsp;•&nbsp; Stick Handle +6 &nbsp;•&nbsp; Hard Shot Bonus +5</div>
       </div>
     </div>
     <!-- Right col -->
@@ -926,7 +935,8 @@ label{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-tra
         <div class="glass" style="overflow:hidden;">
           <div class="panel-header">
             <div class="hist-tabs">
-              <button class="hist-tab active-shot" id="tab-shot" onclick="setHistTab('shot')">Shots</button>
+              <button class="hist-tab active-all" id="tab-all" onclick="setHistTab('all')">All</button>
+              <button class="hist-tab" id="tab-shot" onclick="setHistTab('shot')">Shots</button>
               <button class="hist-tab" id="tab-pass" onclick="setHistTab('pass')">Passes</button>
               <button class="hist-tab" id="tab-stick" onclick="setHistTab('stick')">Stick</button>
               <button class="hist-tab" id="tab-hardshot" onclick="setHistTab('hardshot')">Hard Shots</button>
@@ -1042,7 +1052,7 @@ const STATE = {
   player: {id:'',name:'',contact:'',puckChoice:''},
   session: {
     active:false,start:null,timer:null,
-    events:[],bestShot:0,bestPassForce:0,maxSpin:0,
+    events:[],bestShot:0,personalBestShot:0,bestPassForce:0,maxSpin:0,
     latestMotion:0,motionPeak:0,motionPeakTs:0,
     motionActive:false,motionLastActiveTs:0,
     totalShotCount:0,totalPassCount:0,totalStickCount:0
@@ -1053,7 +1063,7 @@ const STATE = {
   bg: {
     canvas:null,ctx:null,particles:[],frame:null,initialized:false
   },
-  histTab:'shot',
+  histTab:'all',
   prevScreen:'s-register',
   clockInterval:null,
   finishedOnce:false
@@ -1084,6 +1094,22 @@ function loadSavedPlayer() {
 
 function normalizePlayerPart(value) {
   return String(value || '').trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function maskContact(value) {
+  const contact = String(value || '').trim();
+  if (!contact) return 'No contact';
+  if (contact.startsWith('__seed_')) return 'Demo player';
+  if (contact.includes('@')) {
+    const [local, domain] = contact.split('@');
+    const safeLocal = local.replace(/[^a-zA-Z0-9._-]/g, '');
+    const safeDomain = domain.replace(/[^a-zA-Z0-9.-]/g, '');
+    const visible = safeLocal.slice(0, Math.min(2, safeLocal.length));
+    return `${visible}${'*'.repeat(Math.max(3, safeLocal.length - visible.length))}@${safeDomain}`;
+  }
+  const digits = contact.replace(/\D/g, '');
+  if (digits.length >= 4) return `${'*'.repeat(Math.max(4, digits.length - 4))}${digits.slice(-4)}`;
+  return 'Hidden contact';
 }
 
 function getPlayerId(name, contact) {
@@ -1359,22 +1385,32 @@ function recordEvent(type, n) {
     force: parseFloat(forceN.toFixed(1)),
     spin:  Math.round(spinRpm),
     intensity: n.intensity || 0,
-    hardShot: type === 'shot' && Math.round(speedKmh) > HARD_SHOT_KMH
+    hardShot: type === 'shot' && Math.round(speedKmh) > HARD_SHOT_KMH,
+    celebrations: []
   };
   STATE.session.events.push(ev);
 
   // Update bests
   if (type === 'shot' && ev.speed > STATE.session.bestShot) {
+    const previousRecord = Math.max(STATE.session.personalBestShot, STATE.session.bestShot);
     STATE.session.bestShot = ev.speed;
     popNum('best-shot', ev.speed);
+    if (previousRecord > 0 && ev.speed > previousRecord) {
+      ev.celebrations.push(`NEW BEST SHOT! +${ev.speed - previousRecord} km/h improvement`);
+      STATE.session.personalBestShot = ev.speed;
+    }
   }
   if (type === 'pass' && ev.force > STATE.session.bestPassForce) {
     STATE.session.bestPassForce = ev.force;
     popNum('best-pass', ev.force.toFixed(1));
   }
   if (spinRpm > STATE.session.maxSpin) {
+    const previousSpinRecord = STATE.session.maxSpin;
     STATE.session.maxSpin = Math.round(spinRpm);
     popNum('best-spin', STATE.session.maxSpin);
+    if (previousSpinRecord > 0 && STATE.session.maxSpin > previousSpinRecord) {
+      ev.celebrations.push(`NEW SPIN RECORD! +${STATE.session.maxSpin - previousSpinRecord} rpm`);
+    }
   }
 
   // Count tallies
@@ -1390,7 +1426,7 @@ function recordEvent(type, n) {
   }
 
   flashEvent(ev.hardShot ? 'hardshot' : type, ev);
-  if (STATE.histTab === type || (STATE.histTab === 'hardshot' && ev.hardShot)) renderHistory();
+  if (STATE.histTab === 'all' || STATE.histTab === type || (STATE.histTab === 'hardshot' && ev.hardShot)) renderHistory();
   updateSessionScore();
 }
 
@@ -1405,7 +1441,7 @@ function recordMotionPeak(speedKmh, peakTs = Date.now()) {
   };
   STATE.session.events.push(ev);
   STATE.session.latestMotion = ev.speed;
-  if (STATE.histTab === 'motion') renderHistory();
+  if (STATE.histTab === 'all' || STATE.histTab === 'motion') renderHistory();
 }
 
 function finalizeMotionEpisode() {
@@ -1473,7 +1509,10 @@ function flashEvent(type, ev) {
   const nameEl = document.getElementById('ev-name');
   const valEl  = document.getElementById('ev-val');
   const unitEl = document.getElementById('ev-unit');
+  const celebrationEl = document.getElementById('event-celebration');
   flash.className = 'event-flash ev-' + type;
+  celebrationEl.textContent = ev.celebrations?.join(' • ') || '';
+  celebrationEl.className = 'event-celebration' + (ev.celebrations?.length ? ' show' : '');
 
   const icons = {shot:'icon-shot',hardshot:'icon-shot',pass:'icon-pass',stick:'icon-spin',motion:'icon-shot'};
   const iconEl = flash.querySelector('.event-icon');
@@ -1504,7 +1543,7 @@ function flashEvent(type, ev) {
 // ── HISTORY ──
 function setHistTab(type) {
   STATE.histTab = type;
-  ['shot','pass','stick','hardshot','motion'].forEach(t => {
+  ['all','shot','pass','stick','hardshot','motion'].forEach(t => {
     const tab = document.getElementById('tab-' + t);
     if (!tab) return;
     tab.className = 'hist-tab' + (t === type ? (' active-' + t) : '');
@@ -1515,7 +1554,9 @@ function setHistTab(type) {
 function renderHistory() {
   const list = document.getElementById('hist-list');
   const events = STATE.session.events.filter(ev =>
-    STATE.histTab === 'hardshot' ? ev.type === 'shot' && ev.hardShot : ev.type === STATE.histTab
+    STATE.histTab === 'all' ? true :
+      STATE.histTab === 'hardshot' ? ev.type === 'shot' && ev.hardShot :
+        ev.type === STATE.histTab
   ).slice().reverse();
   if (!events.length) { list.innerHTML = '<div class="hist-empty">No events yet</div>'; return; }
   list.innerHTML = events.slice(0, 40).map(ev => {
@@ -1524,11 +1565,16 @@ function renderHistory() {
     const subLabels  = {shot:`Force ${ev.force}N`,pass:`Speed ${ev.speed} km/h`,stick:'Stick handling',motion:'Latest motion peak'};
     const displayType = ev.hardShot ? 'hardshot' : ev.type;
     const displayLabel = ev.hardShot ? 'Hard Shot' : ev.type.charAt(0).toUpperCase()+ev.type.slice(1);
+    const detailText = ev.celebrations?.length
+      ? ev.celebrations.join(' • ')
+      : ev.hardShot
+        ? `Over ${HARD_SHOT_KMH} km/h • Force ${ev.force}N`
+        : (subLabels[ev.type]||'');
     return `<div class="hist-item">
       <div class="hist-item-dot ${displayType}"></div>
       <div class="hist-item-main">
         <div class="hist-item-label">${displayLabel}</div>
-        <div class="hist-item-sub">${ev.hardShot ? `Over ${HARD_SHOT_KMH} km/h • Force ${ev.force}N` : (subLabels[ev.type]||'')}</div>
+        <div class="hist-item-sub">${detailText}</div>
       </div>
       <div class="hist-item-val">${typeLabels[ev.type]||''}</div>
       <div class="hist-item-time">${eventTime}</div>
@@ -1573,12 +1619,8 @@ function computeSessionScore() {
   const shots   = evs.filter(e=>e.type==='shot').length;
   const passes  = evs.filter(e=>e.type==='pass').length;
   const sticks  = evs.filter(e=>e.type==='stick').length;
-  return Math.round(
-    shots*10 + passes*8 + sticks*6 +
-    (STATE.session.bestShot||0)*0.5 +
-    (STATE.session.bestPassForce||0)*5 +
-    (STATE.session.maxSpin||0)*0.3
-  );
+  const hardShots = evs.filter(e=>e.type==='shot' && e.hardShot).length;
+  return shots*10 + passes*8 + sticks*6 + hardShots*5;
 }
 
 // ── RESET / FINISH ──
@@ -1587,6 +1629,7 @@ function resetSession(silent=false) {
   stopClock();
   STATE.session.events = [];
   STATE.session.bestShot = 0;
+  STATE.session.personalBestShot = loadLeaderboard().find(e => entryMatchesPlayer(e))?.bestShotKmh || 0;
   STATE.session.bestPassForce = 0;
   STATE.session.maxSpin = 0;
   STATE.session.latestMotion = 0;
@@ -1611,6 +1654,8 @@ function resetSession(silent=false) {
   document.getElementById('ev-val').textContent  = '—';
   document.getElementById('ev-unit').textContent = 'Waiting for puck data';
   document.getElementById('event-flash').className = 'event-flash';
+  document.getElementById('event-celebration').textContent = '';
+  document.getElementById('event-celebration').className = 'event-celebration';
   Object.keys(_numCache).forEach(k => delete _numCache[k]);
 
   if (STATE.puck.connected) startClock();
@@ -1701,7 +1746,7 @@ function renderMiniLeaderboard(containerId) {
       <div class="mini-lb-rank ${rankClass}">${i+1}</div>
       <div>
         <div class="mini-lb-name">${e.name}${isMe?' (you)':''}</div>
-        <div class="mini-lb-puck">${e.contact || 'No contact'} • ${e.puck}</div>
+        <div class="mini-lb-puck">${maskContact(e.contact)} • ${e.puck}</div>
       </div>
       <div class="mini-lb-pts">${e.totalPoints}</div>
     </div>`;
@@ -1727,7 +1772,7 @@ function renderLeaderboardScreen() {
       <svg class="podium-badge" viewBox="${bid==='icon-crown'?'0 0 32 28':bid==='icon-shield'?'0 0 28 32':'0 0 32 32'}"><use href="#${bid}"/></svg>
       <div class="podium-name">${e.name}</div>
       <div class="podium-pts">${e.totalPoints}</div>
-      <div class="podium-sub">${e.contact || 'No contact'} · ${e.puck} · ${e.gamesPlayed} games</div>
+      <div class="podium-sub">${maskContact(e.contact)} · ${e.puck} · ${e.gamesPlayed} games</div>
       <div class="podium-plinth">${cls==='p1'?'1':cls==='p2'?'2':'3'}</div>
     </div>`;
   }).join('');
@@ -1747,7 +1792,7 @@ function renderLeaderboardScreen() {
       <div class="lb-rank-cell"><span class="lb-rank-num ${rankNumCls}">${i+1}</span>${rankBadge}</div>
       <div class="lb-name-cell">
         <div class="lb-player-name">${e.name}${isMe?' ★':''}</div>
-        <div class="lb-player-puck">${e.contact || 'No contact'} · ${e.puck}</div>
+        <div class="lb-player-puck">${maskContact(e.contact)} · ${e.puck}</div>
       </div>
       <div style="font-size:12px;color:var(--muted)">${e.puck}</div>
       <div class="lb-pts-cell">${e.totalPoints}</div>
