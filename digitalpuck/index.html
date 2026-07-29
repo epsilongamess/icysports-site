@@ -779,7 +779,7 @@ label{display:block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-tra
           </div>
           <div class="form-group" style="margin-bottom:0">
             <label for="inp-contact">Email or Phone</label>
-            <input type="text" id="inp-contact" placeholder="Identity key" autocomplete="off" maxlength="64"/>
+            <input type="text" id="inp-contact" placeholder="name@example.com or +91 98765 43210" autocomplete="off" maxlength="64" aria-describedby="reg-error"/>
           </div>
         </div>
         <div style="margin-top:18px">
@@ -1195,6 +1195,16 @@ function selectPuck(name) {
   document.getElementById('opt-puck2').classList.toggle('selected', name === 'HockeyPuck2');
 }
 
+function isValidEmailOrPhone(value) {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const phoneCharacters = /^\+?[\d\s().-]+$/;
+  const phoneDigits = value.replace(/\D/g, '');
+  const validPhone = phoneCharacters.test(value) &&
+    phoneDigits.length >= 7 &&
+    phoneDigits.length <= 15;
+  return emailPattern.test(value) || validPhone;
+}
+
 function joinGame() {
   const name = document.getElementById('inp-name').value.trim();
   const contact = document.getElementById('inp-contact').value.trim();
@@ -1211,6 +1221,12 @@ function joinGame() {
     document.getElementById('inp-contact').classList.add('shake');
     setTimeout(() => document.getElementById('inp-contact').classList.remove('shake'), 400);
     err.textContent = 'Please enter your email or phone.';
+    return;
+  }
+  if (!isValidEmailOrPhone(contact)) {
+    document.getElementById('inp-contact').classList.add('shake');
+    setTimeout(() => document.getElementById('inp-contact').classList.remove('shake'), 400);
+    err.textContent = 'Enter a valid email or a phone number with 7 to 15 digits.';
     return;
   }
   if (!STATE.player.puckChoice) {
