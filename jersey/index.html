@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#050806">
   <meta name="description" content="Preorder the Official GREEN HOCKEY India Jersey.">
   <title>Official GREEN HOCKEY India Jersey</title>
+
   <style>
     :root {
       --page: #050806;
@@ -14,31 +15,60 @@
       --line: #263129;
       --green: #32e875;
       --green-dark: #197c42;
-      --orange: #f36d21;
       --white: #f5f8f6;
       --muted: #a9b4ac;
       --black: #020403;
       --error: #ff9b9b;
     }
 
-    * { box-sizing: border-box; }
-    html { color-scheme: dark; scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      color-scheme: dark;
+      scroll-behavior: smooth;
+    }
 
     body {
       min-width: 320px;
       min-height: 100svh;
       margin: 0;
       background:
-        radial-gradient(circle at 8% 10%, rgba(50, 232, 117, .08), transparent 24rem),
+        radial-gradient(
+          circle at 8% 10%,
+          rgba(50, 232, 117, 0.08),
+          transparent 24rem
+        ),
         var(--page);
       color: var(--white);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
       -webkit-font-smoothing: antialiased;
     }
 
-    button, input, select, textarea { font: inherit; }
-    button, .thumb { cursor: pointer; }
-    img { display: block; max-width: 100%; }
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    .thumb {
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
 
     .page-shell {
       width: min(1180px, calc(100% - 40px));
@@ -57,37 +87,40 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
       color: inherit;
       text-decoration: none;
     }
 
     .company-logo {
-      width: clamp(210px, 28vw, 360px);
+      width: clamp(250px, 32vw, 430px);
       height: auto;
     }
 
     .header-link {
       color: var(--muted);
-      font-size: .78rem;
+      font-size: 0.78rem;
       font-weight: 800;
-      letter-spacing: .08em;
+      letter-spacing: 0.08em;
       text-decoration: none;
       text-transform: uppercase;
       transition: color 180ms ease;
     }
 
-    .header-link:hover { color: var(--green); }
+    .header-link:hover {
+      color: var(--green);
+    }
 
     .product {
       display: grid;
-      grid-template-columns: minmax(0, 1.12fr) minmax(360px, .88fr);
+      grid-template-columns: minmax(0, 1.12fr) minmax(360px, 0.88fr);
       gap: clamp(36px, 6vw, 76px);
       align-items: start;
       padding: clamp(34px, 5vw, 68px) 0 clamp(58px, 7vw, 96px);
     }
 
-    .gallery-wrap { min-width: 0; }
+    .gallery-wrap {
+      min-width: 0;
+    }
 
     .gallery {
       position: relative;
@@ -106,7 +139,9 @@
       touch-action: pan-x;
     }
 
-    .gallery-track::-webkit-scrollbar { display: none; }
+    .gallery-track::-webkit-scrollbar {
+      display: none;
+    }
 
     .slide {
       display: grid;
@@ -131,9 +166,9 @@
       left: 14px;
       padding: 7px 10px;
       border-radius: 999px;
-      background: rgba(2, 4, 3, .76);
+      background: rgba(2, 4, 3, 0.76);
       color: var(--white);
-      font-size: .72rem;
+      font-size: 0.72rem;
       font-weight: 800;
       backdrop-filter: blur(8px);
     }
@@ -148,17 +183,34 @@
       place-items: center;
       padding: 0;
       transform: translateY(-50%);
-      border: 1px solid rgba(255, 255, 255, .22);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       border-radius: 50%;
-      background: rgba(2, 4, 3, .78);
+      background: rgba(2, 4, 3, 0.78);
       color: var(--white);
-      transition: background-color 180ms ease, color 180ms ease;
+      transition:
+        background-color 180ms ease,
+        color 180ms ease;
     }
 
-    .gallery-arrow:hover { background: var(--green); color: var(--black); }
-    .gallery-arrow.prev { left: 14px; }
-    .gallery-arrow.next { right: 14px; }
-    .gallery-arrow svg { width: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
+    .gallery-arrow:hover {
+      background: var(--green);
+      color: var(--black);
+    }
+
+    .gallery-arrow.prev {
+      left: 14px;
+    }
+
+    .gallery-arrow.next {
+      right: 14px;
+    }
+
+    .gallery-arrow svg {
+      width: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
 
     .thumbnails {
       display: grid;
@@ -175,13 +227,91 @@
       border-radius: 12px;
       outline: none;
       background: #eef0ef;
-      transition: border-color 180ms ease, opacity 180ms ease;
+      transition:
+        border-color 180ms ease,
+        opacity 180ms ease;
     }
 
-    .thumb:hover { opacity: .82; }
-    .thumb.active { border-color: var(--green); }
-    .thumb:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
-    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .thumb:hover {
+      opacity: 0.82;
+    }
+
+    .thumb.active {
+      border-color: var(--green);
+    }
+
+    .thumb:focus-visible {
+      outline: 3px solid var(--white);
+      outline-offset: 3px;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .purchase-panel {
+      margin-top: 18px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+    }
+
+    .size-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .size-heading strong {
+      font-size: 0.92rem;
+    }
+
+    .selected-size {
+      color: var(--green);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .size-options {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(54px, 1fr));
+      gap: 9px;
+      margin-bottom: 18px;
+    }
+
+    .size-option {
+      min-height: 58px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--page);
+      color: var(--white);
+      font-weight: 850;
+      transition:
+        border-color 180ms ease,
+        background-color 180ms ease,
+        color 180ms ease;
+    }
+
+    .size-option:hover {
+      border-color: var(--green);
+    }
+
+    .size-option.active {
+      border: 2px solid var(--green);
+      background: rgba(50, 232, 117, 0.1);
+      color: var(--green);
+    }
+
+    .size-option:focus-visible {
+      outline: 3px solid var(--white);
+      outline-offset: 3px;
+    }
 
     .product-info {
       position: sticky;
@@ -189,34 +319,18 @@
       padding-top: 8px;
     }
 
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      margin: 0 0 16px;
-      color: var(--green);
-      font-size: .72rem;
-      font-weight: 850;
-      letter-spacing: .15em;
-      text-transform: uppercase;
+    h1,
+    h2,
+    p {
+      margin-top: 0;
     }
-
-    .eyebrow::before {
-      width: 22px;
-      height: 2px;
-      flex: 0 0 auto;
-      background: currentColor;
-      content: "";
-    }
-
-    h1, h2, p { margin-top: 0; }
 
     h1 {
       max-width: 550px;
       margin-bottom: 18px;
-      font-size: clamp(2.6rem, 4.8vw, 4.65rem);
-      line-height: .98;
-      letter-spacing: -.065em;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 0.98;
+      letter-spacing: -0.065em;
     }
 
     .product-copy {
@@ -226,61 +340,91 @@
       line-height: 1.7;
     }
 
-    .availability {
+    .price {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 9px;
-      margin: 0 0 24px;
-      color: #dfe8e1;
-      font-size: .86rem;
-      font-weight: 700;
+      margin: 0 0 16px;
     }
 
-    .availability::before {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 0 5px rgba(50, 232, 117, .1);
-      content: "";
+    .price strong {
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.045em;
     }
 
-    .details {
-      display: grid;
-      gap: 1px;
-      overflow: hidden;
-      margin: 0 0 26px;
-      padding: 0;
+    .price span {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .personalize {
+      margin: 0 0 18px;
+      padding: 16px;
       border: 1px solid var(--line);
-      border-radius: 16px;
-      background: var(--line);
-      list-style: none;
+      border-radius: 12px;
+      background: var(--page);
     }
 
-    .details li {
+    .personalize-toggle {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      background: var(--surface);
-      color: #dce3de;
-      font-size: .86rem;
+      gap: 11px;
+      cursor: pointer;
     }
 
-    .detail-icon {
+    .personalize-toggle input {
+      width: 20px;
+      min-height: 20px;
+      margin: 0;
+      padding: 0;
+      accent-color: var(--green);
+    }
+
+    .personalize-toggle span {
+      color: var(--white);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .personalize-toggle small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 500;
+    }
+
+    .custom-name-field {
+      display: none;
+      margin-top: 14px;
+    }
+
+    .custom-name-field.visible {
       display: grid;
-      width: 28px;
-      height: 28px;
-      flex: 0 0 auto;
-      place-items: center;
-      border-radius: 50%;
-      background: var(--surface-2);
-      color: var(--green);
-      font-size: .75rem;
-      font-weight: 900;
     }
 
-    .preorder-button, .submit-button, .secondary-button {
+    .custom-name-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.7rem;
+    }
+
+    .price-breakdown {
+      margin: 13px 0 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+
+    .price-breakdown strong {
+      color: var(--green);
+    }
+
+    .preorder-button,
+    .submit-button,
+    .secondary-button {
       display: inline-flex;
       width: 100%;
       min-height: 58px;
@@ -292,38 +436,38 @@
       border-radius: 12px;
       background: var(--green);
       color: var(--black);
+      cursor: pointer;
       font-weight: 900;
-      letter-spacing: .04em;
+      letter-spacing: 0.04em;
       text-decoration: none;
-      transition: background-color 180ms ease, color 180ms ease;
+      transition:
+        background-color 180ms ease,
+        color 180ms ease;
     }
 
-    .preorder-button:hover, .submit-button:hover, .secondary-button:hover {
+    .preorder-button:hover,
+    .submit-button:hover,
+    .secondary-button:hover {
       background: transparent;
       color: var(--green);
     }
 
-    .preorder-button:focus-visible, .submit-button:focus-visible,
-    .secondary-button:focus-visible, input:focus, select:focus, textarea:focus {
+    .preorder-button:focus-visible,
+    .submit-button:focus-visible,
+    .secondary-button:focus-visible,
+    input:focus {
       outline: 3px solid var(--white);
       outline-offset: 4px;
     }
 
-    .preorder-button svg, .submit-button svg {
+    .preorder-button svg,
+    .submit-button svg {
       width: 20px;
       fill: none;
       stroke: currentColor;
       stroke-linecap: round;
       stroke-linejoin: round;
       stroke-width: 2;
-    }
-
-    .cta-note {
-      margin: 12px 0 0;
-      color: #7f8a82;
-      font-size: .76rem;
-      line-height: 1.5;
-      text-align: center;
     }
 
     .form-section {
@@ -334,19 +478,42 @@
 
     .form-layout {
       display: grid;
-      grid-template-columns: minmax(240px, .7fr) minmax(500px, 1.3fr);
+      grid-template-columns: minmax(240px, 0.7fr) minmax(500px, 1.3fr);
       gap: clamp(36px, 7vw, 88px);
       align-items: start;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 16px;
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 22px;
+      height: 2px;
+      flex: 0 0 auto;
+      background: currentColor;
+      content: "";
     }
 
     .form-intro h2 {
       margin-bottom: 16px;
       font-size: clamp(2.3rem, 4vw, 4rem);
       line-height: 1;
-      letter-spacing: -.06em;
+      letter-spacing: -0.06em;
     }
 
-    .form-intro > p:last-child { color: var(--muted); line-height: 1.7; }
+    .form-intro > p:last-child {
+      color: var(--muted);
+      line-height: 1.7;
+    }
 
     .form-card {
       position: relative;
@@ -369,7 +536,12 @@
       pointer-events: none;
     }
 
-    .form-top, form, .success { position: relative; z-index: 1; }
+    .form-top,
+    form,
+    .success {
+      position: relative;
+      z-index: 1;
+    }
 
     .form-top {
       display: flex;
@@ -379,25 +551,46 @@
       margin-bottom: 26px;
     }
 
-    .form-top h3 { margin: 0; font-size: 1.35rem; letter-spacing: -.03em; }
+    .form-top h3 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+    }
 
     .optional {
       padding: 7px 10px;
       border: 1px solid var(--green-dark);
       border-radius: 999px;
       color: var(--green);
-      font-size: .65rem;
+      font-size: 0.65rem;
       font-weight: 800;
       text-transform: uppercase;
       white-space: nowrap;
     }
 
-    form { display: grid; gap: 19px; }
-    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-    label { display: grid; gap: 8px; }
-    label > span { color: #dce3de; font-size: .8rem; font-weight: 700; }
+    form {
+      display: grid;
+      gap: 19px;
+    }
 
-    input, select, textarea {
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+    }
+
+    label > span {
+      color: #dce3de;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    input {
       width: 100%;
       min-height: 50px;
       padding: 13px 14px;
@@ -406,29 +599,47 @@
       outline: none;
       background: var(--page);
       color: var(--white);
-      transition: border-color 180ms ease, box-shadow 180ms ease;
+      transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
     }
 
-    textarea { min-height: 108px; resize: vertical; line-height: 1.5; }
-    input::placeholder, textarea::placeholder { color: #758078; }
-    input:focus, select:focus, textarea:focus {
+    input::placeholder {
+      color: #758078;
+    }
+
+    input:focus {
       border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(50, 232, 117, .13);
+      box-shadow: 0 0 0 3px rgba(50, 232, 117, 0.13);
     }
 
-    .submit-button, .secondary-button { cursor: pointer; }
-    .submit-button:disabled { opacity: .65; cursor: wait; }
-    .secondary-button { width: auto; min-height: 48px; font-size: .85rem; }
+    .submit-button:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
 
-    .form-note, .form-error {
+    .secondary-button {
+      width: auto;
+      min-height: 48px;
+      font-size: 0.85rem;
+    }
+
+    .form-note,
+    .form-error {
       margin: -7px 0 0;
-      font-size: .75rem;
+      font-size: 0.75rem;
       line-height: 1.5;
       text-align: center;
     }
 
-    .form-note { color: #7f8a82; }
-    .form-error { min-height: 1.2em; color: var(--error); }
+    .form-note {
+      color: #7f8a82;
+    }
+
+    .form-error {
+      min-height: 1.2em;
+      color: var(--error);
+    }
 
     .success {
       display: none;
@@ -451,8 +662,18 @@
       font-weight: 900;
     }
 
-    .success h3 { margin: 0; font-size: 2rem; letter-spacing: -.05em; }
-    .success > p { max-width: 420px; margin: 16px 0 26px; color: var(--muted); line-height: 1.65; }
+    .success h3 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: -0.05em;
+    }
+
+    .success > p {
+      max-width: 420px;
+      margin: 16px 0 26px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
 
     footer {
       display: flex;
@@ -461,49 +682,146 @@
       padding: 24px 0;
       border-top: 1px solid var(--line);
       color: #768078;
-      font-size: .74rem;
+      font-size: 0.74rem;
     }
 
     @media (max-width: 900px) {
-      .product, .form-layout { grid-template-columns: 1fr; }
-      .product-info { position: static; padding-top: 0; }
-      .form-intro { max-width: 620px; }
+      .product,
+      .form-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .product-info {
+        position: static;
+        padding-top: 0;
+      }
+
+      .form-intro {
+        max-width: 620px;
+      }
     }
 
     @media (max-width: 580px) {
-      .page-shell { width: min(100% - 24px, 1180px); }
-      .site-header { min-height: 68px; }
-      .company-logo { width: min(58vw, 250px); }
-      .header-link { font-size: .68rem; }
-      .product { gap: 28px; padding-top: 24px; }
-      .gallery { border-radius: 18px; }
-      .slide { height: min(120vw, 570px); }
-      .gallery-arrow { display: none; }
-      .thumbnails { grid-template-columns: repeat(3, 72px); }
-      h1 { font-size: clamp(2.55rem, 12vw, 3.6rem); }
-      .form-layout { gap: 28px; }
-      .form-card { padding: 22px 16px 24px; border-radius: 18px; }
-      .form-top { display: block; }
-      .optional { display: inline-block; margin-top: 12px; }
-      .field-row { grid-template-columns: 1fr; gap: 19px; }
-      input, select, textarea { min-height: 52px; font-size: 16px; }
-      footer { display: block; text-align: center; }
-      footer span { display: block; margin-top: 5px; }
+      .page-shell {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .site-header {
+        min-height: 68px;
+      }
+
+      .company-logo {
+        width: min(68vw, 290px);
+      }
+
+      .header-link {
+        font-size: 0.68rem;
+      }
+
+      .product {
+        gap: 28px;
+        padding-top: 24px;
+      }
+
+      .gallery {
+        border-radius: 18px;
+      }
+
+      .slide {
+        height: min(120vw, 570px);
+      }
+
+      .gallery-arrow {
+        display: none;
+      }
+
+      .thumbnails {
+        grid-template-columns: repeat(3, 72px);
+      }
+
+      .purchase-panel {
+        padding: 16px;
+        border-radius: 14px;
+      }
+
+      .size-options {
+        gap: 6px;
+      }
+
+      .size-option {
+        min-height: 52px;
+        padding: 6px 3px;
+        font-size: 0.82rem;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 9.5vw, 2.85rem);
+      }
+
+      .form-layout {
+        gap: 28px;
+      }
+
+      .form-card {
+        padding: 22px 16px 24px;
+        border-radius: 18px;
+      }
+
+      .form-top {
+        display: block;
+      }
+
+      .optional {
+        display: inline-block;
+        margin-top: 12px;
+      }
+
+      .field-row {
+        grid-template-columns: 1fr;
+        gap: 19px;
+      }
+
+      input {
+        min-height: 52px;
+        font-size: 16px;
+      }
+
+      footer {
+        display: block;
+        text-align: center;
+      }
+
+      footer span {
+        display: block;
+        margin-top: 5px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html, .gallery-track { scroll-behavior: auto; }
-      *, *::before, *::after { transition-duration: 1ms !important; }
+      html,
+      .gallery-track {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 1ms !important;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="page-shell">
     <header class="site-header">
       <a class="brand" href="#" aria-label="Green Hockey home">
         <img class="company-logo" src="logo.png" alt="GREEN.HOCKEY">
       </a>
-      <a class="header-link" href="#preorder-form-section">Preorder interest</a>
+
+      <a class="header-link" href="#preorder-form-section">
+        Preorder interest
+      </a>
     </header>
 
     <main>
@@ -511,69 +829,199 @@
         <div class="gallery-wrap">
           <div class="gallery">
             <span class="image-count" id="image-count">1 / 3</span>
-            <div class="gallery-track" id="gallery-track" aria-label="Product images">
+
+            <div
+              class="gallery-track"
+              id="gallery-track"
+              aria-label="Product images"
+            >
               <div class="slide">
-                <img src="jersey front.jpg" alt="Official Green Hockey India Jersey worn from the front">
+                <img
+                  src="jersey front.jpg"
+                  alt="Official Green Hockey India Jersey worn from the front"
+                >
               </div>
+
               <div class="slide">
-                <img src="jersey back.jpg" alt="Official Green Hockey India Jersey worn from the back">
+                <img
+                  src="jersey back.jpg"
+                  alt="Official Green Hockey India Jersey worn from the back"
+                >
               </div>
+
               <div class="slide">
-                <img src="jersey 1.png" alt="Front and back product view of the Official Green Hockey India Jersey">
+                <img
+                  src="jersey 1.png"
+                  alt="Front and back product view of the Official Green Hockey India Jersey"
+                >
               </div>
             </div>
-            <button class="gallery-arrow prev" id="previous-image" type="button" aria-label="Previous product image">
-              <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"></path></svg>
+
+            <button
+              class="gallery-arrow prev"
+              id="previous-image"
+              type="button"
+              aria-label="Previous product image"
+            >
+              <svg viewBox="0 0 24 24">
+                <path d="m15 18-6-6 6-6"></path>
+              </svg>
             </button>
-            <button class="gallery-arrow next" id="next-image" type="button" aria-label="Next product image">
-              <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></svg>
+
+            <button
+              class="gallery-arrow next"
+              id="next-image"
+              type="button"
+              aria-label="Next product image"
+            >
+              <svg viewBox="0 0 24 24">
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
             </button>
           </div>
 
           <div class="thumbnails" aria-label="Choose product image">
-            <button class="thumb active" type="button" data-slide="0" aria-label="Show jersey front">
+            <button
+              class="thumb active"
+              type="button"
+              data-slide="0"
+              aria-label="Show jersey front"
+            >
               <img src="jersey front.jpg" alt="">
             </button>
-            <button class="thumb" type="button" data-slide="1" aria-label="Show jersey back">
+
+            <button
+              class="thumb"
+              type="button"
+              data-slide="1"
+              aria-label="Show jersey back"
+            >
               <img src="jersey back.jpg" alt="">
             </button>
-            <button class="thumb" type="button" data-slide="2" aria-label="Show front and back product view">
+
+            <button
+              class="thumb"
+              type="button"
+              data-slide="2"
+              aria-label="Show front and back product view"
+            >
               <img src="jersey 1.png" alt="">
             </button>
+          </div>
+
+          <div class="purchase-panel">
+            <div class="size-heading">
+              <strong>Select size</strong>
+              <span class="selected-size" id="selected-size-label">
+                Size: M
+              </span>
+            </div>
+
+            <div class="size-options" aria-label="Choose jersey size">
+              <button class="size-option" type="button" data-size="S">
+                S
+              </button>
+
+              <button
+                class="size-option active"
+                type="button"
+                data-size="M"
+              >
+                M
+              </button>
+
+              <button class="size-option" type="button" data-size="L">
+                L
+              </button>
+
+              <button class="size-option" type="button" data-size="XL">
+                XL
+              </button>
+
+              <button class="size-option" type="button" data-size="XXL">
+                XXL
+              </button>
+            </div>
+
+            <p class="price">
+              <strong>₹3,500</strong>
+              <span>Preorder price</span>
+            </p>
+
+            <div class="personalize">
+              <label class="personalize-toggle">
+                <input id="personalize-toggle" type="checkbox">
+
+                <span>
+                  Add a custom jersey name · +₹1,000
+                  <small>Personalise the back of your jersey.</small>
+                </span>
+              </label>
+
+              <label class="custom-name-field" id="custom-name-field">
+                <span>Custom name</span>
+
+                <input
+                  id="custom-name"
+                  type="text"
+                  maxlength="8"
+                  placeholder="e.g. RITESH"
+                  autocomplete="off"
+                  disabled
+                >
+
+                <span class="custom-name-meta">
+                  <span>Printed in uppercase</span>
+
+                  <span>
+                    <b id="custom-name-count">0</b> / 8
+                  </span>
+                </span>
+              </label>
+
+              <p class="price-breakdown" id="price-breakdown">
+                Base price: <strong>₹3,500</strong>
+              </p>
+            </div>
+
+            <a class="preorder-button" href="#preorder-form-section">
+              Order now
+
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M5 12h14M13 6l6 6-6 6"></path>
+              </svg>
+            </a>
           </div>
         </div>
 
         <div class="product-info">
-          <p class="eyebrow">Official team wear</p>
-          <h1 id="product-title">Official GREEN HOCKEY India Jersey</h1>
+          <h1 id="product-title">
+            Official GREEN HOCKEY India Jersey
+          </h1>
+
           <p class="product-copy">
-            A bold white hockey jersey celebrating India, finished with a fierce
-            tiger crest, deep-green lettering, and tricolour-inspired sleeve stripes.
+            The official India jersey from GREEN.HOCKEY, made for supporters
+            who want to carry the spirit of the game.
           </p>
-          <p class="availability">Preorder interest now open</p>
-
-          <ul class="details" aria-label="Jersey design details">
-            <li><span class="detail-icon">01</span> India tiger crest on the front</li>
-            <li><span class="detail-icon">02</span> Green number 26 and name detail on the back</li>
-            <li><span class="detail-icon">03</span> Green and orange striped sleeves</li>
-          </ul>
-
-          <a class="preorder-button" href="#preorder-form-section">
-            Preorder this jersey
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
-          </a>
-          <p class="cta-note">Register your interest—no payment or commitment today.</p>
         </div>
       </section>
 
-      <section class="form-section" id="preorder-form-section" aria-labelledby="form-title">
+      <section
+        class="form-section"
+        id="preorder-form-section"
+        aria-labelledby="form-title"
+      >
         <div class="form-layout">
           <div class="form-intro">
             <p class="eyebrow">Reserve your interest</p>
-            <h2 id="form-title">Get on the preorder list.</h2>
+
+            <h2 id="form-title">
+              Get on the preorder list.
+            </h2>
+
             <p>
-              Choose the jersey size you are interested in. Every field is optional,
-              and this helps us prepare for the official release.
+              Share your contact details and we will follow up about your
+              selected size.
             </p>
           </div>
 
@@ -585,61 +1033,110 @@
               </div>
 
               <form id="preorder-form">
+                <input
+                  id="selected-size-input"
+                  name="size"
+                  type="hidden"
+                  value="M"
+                >
+
+                <input
+                  id="custom-name-input"
+                  name="customName"
+                  type="hidden"
+                  value=""
+                >
+
+                <input
+                  id="total-price-input"
+                  name="totalPrice"
+                  type="hidden"
+                  value="₹3,500"
+                >
+
                 <div class="field-row">
                   <label>
                     <span>Name</span>
-                    <input name="name" type="text" placeholder="Your name" autocomplete="name">
-                  </label>
-                  <label>
-                    <span>Company</span>
-                    <input name="company" type="text" placeholder="Company name" autocomplete="organization">
-                  </label>
-                </div>
 
-                <div class="field-row">
+                    <input
+                      name="name"
+                      type="text"
+                      placeholder="Your name"
+                      autocomplete="name"
+                    >
+                  </label>
+
                   <label>
                     <span>Email</span>
-                    <input name="email" type="email" placeholder="you@example.com" autocomplete="email">
+
+                    <input
+                      name="email"
+                      type="email"
+                      placeholder="you@example.com"
+                      autocomplete="email"
+                    >
                   </label>
+
                   <label>
                     <span>Phone</span>
-                    <input name="phone" type="tel" placeholder="+91 00000 00000" autocomplete="tel" inputmode="tel">
+
+                    <input
+                      name="phone"
+                      type="tel"
+                      placeholder="+91 00000 00000"
+                      autocomplete="tel"
+                      inputmode="tel"
+                    >
                   </label>
                 </div>
 
-                <label>
-                  <span>Jersey size</span>
-                  <select name="size">
-                    <option value="">Select your size</option>
-                    <option value="XS">XS</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                    <option value="XXXL">XXXL</option>
-                  </select>
-                </label>
+                <button
+                  class="submit-button"
+                  type="submit"
+                  id="submit-button"
+                >
+                  <span id="submit-label">Submit order interest</span>
 
-                <label>
-                  <span>What was the best thing you noticed at the event?</span>
-                  <textarea name="eventHighlight" rows="4" placeholder="A moment, idea, person, or experience that stood out…"></textarea>
-                </label>
-
-                <button class="submit-button" type="submit" id="submit-button">
-                  <span id="submit-label">Share my interest</span>
-                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                  <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M5 12h14M13 6l6 6-6 6"></path>
+                  </svg>
                 </button>
-                <p class="form-note">Thanks for showing interest.</p>
-                <p class="form-error" id="form-error" role="alert"></p>
+
+                <p class="form-note">
+                  Selected size:
+                  <strong id="form-size-label">M</strong>
+                </p>
+
+                <p
+                  class="form-error"
+                  id="form-error"
+                  role="alert"
+                ></p>
               </form>
             </div>
 
-            <div class="success" id="success" role="status" aria-live="polite">
+            <div
+              class="success"
+              id="success"
+              role="status"
+              aria-live="polite"
+            >
               <span class="success-icon" aria-hidden="true">✓</span>
+
               <h3>You are on the list.</h3>
-              <p>Thanks for your interest in the Official GREEN HOCKEY India Jersey.</p>
-              <button class="secondary-button" type="button" id="another-response">Add another response</button>
+
+              <p>
+                Thanks for your interest in the Official GREEN HOCKEY India
+                Jersey.
+              </p>
+
+              <button
+                class="secondary-button"
+                type="button"
+                id="another-response"
+              >
+                Add another response
+              </button>
             </div>
           </div>
         </div>
@@ -653,66 +1150,257 @@
   </div>
 
   <script>
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwYQcZHdT7GauTfGD8jGy2wWSR3vQ4dGwfYCWrKnFCxEDktDPeBLOIXJHV2V5-Mr_uUDw/exec";
+    const GOOGLE_SCRIPT_URL =
+      "https://script.google.com/macros/s/AKfycbwYQcZHdT7GauTfGD8jGy2wWSR3vQ4dGwfYCWrKnFCxEDktDPeBLOIXJHV2V5-Mr_uUDw/exec";
+
     const galleryTrack = document.getElementById("gallery-track");
     const imageCount = document.getElementById("image-count");
     const thumbs = [...document.querySelectorAll(".thumb")];
+
+    const sizeOptions = [
+      ...document.querySelectorAll(".size-option")
+    ];
+
+    const selectedSizeInput =
+      document.getElementById("selected-size-input");
+
+    const selectedSizeLabel =
+      document.getElementById("selected-size-label");
+
+    const formSizeLabel =
+      document.getElementById("form-size-label");
+
+    const personalizeToggle =
+      document.getElementById("personalize-toggle");
+
+    const customNameField =
+      document.getElementById("custom-name-field");
+
+    const customName =
+      document.getElementById("custom-name");
+
+    const customNameCount =
+      document.getElementById("custom-name-count");
+
+    const customNameInput =
+      document.getElementById("custom-name-input");
+
+    const totalPriceInput =
+      document.getElementById("total-price-input");
+
+    const priceBreakdown =
+      document.getElementById("price-breakdown");
+
+    const form =
+      document.getElementById("preorder-form");
+
+    const formContent =
+      document.getElementById("form-content");
+
+    const success =
+      document.getElementById("success");
+
+    const anotherResponse =
+      document.getElementById("another-response");
+
+    const submitButton =
+      document.getElementById("submit-button");
+
+    const submitLabel =
+      document.getElementById("submit-label");
+
+    const formError =
+      document.getElementById("form-error");
+
     let currentSlide = 0;
+    let scrollTimer;
 
     function showSlide(index) {
-      currentSlide = (index + thumbs.length) % thumbs.length;
-      galleryTrack.scrollTo({ left: galleryTrack.clientWidth * currentSlide, behavior: "smooth" });
-      imageCount.textContent = `${currentSlide + 1} / ${thumbs.length}`;
-      thumbs.forEach((thumb, i) => thumb.classList.toggle("active", i === currentSlide));
+      currentSlide =
+        (index + thumbs.length) % thumbs.length;
+
+      galleryTrack.scrollTo({
+        left: galleryTrack.clientWidth * currentSlide,
+        behavior: "smooth"
+      });
+
+      imageCount.textContent =
+        `${currentSlide + 1} / ${thumbs.length}`;
+
+      thumbs.forEach((thumb, index) => {
+        thumb.classList.toggle(
+          "active",
+          index === currentSlide
+        );
+      });
     }
 
-    document.getElementById("previous-image").addEventListener("click", () => showSlide(currentSlide - 1));
-    document.getElementById("next-image").addEventListener("click", () => showSlide(currentSlide + 1));
-    thumbs.forEach((thumb) => thumb.addEventListener("click", () => showSlide(Number(thumb.dataset.slide))));
+    document
+      .getElementById("previous-image")
+      .addEventListener("click", () => {
+        showSlide(currentSlide - 1);
+      });
 
-    let scrollTimer;
-    galleryTrack.addEventListener("scroll", () => {
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => {
-        const index = Math.round(galleryTrack.scrollLeft / galleryTrack.clientWidth);
-        if (index !== currentSlide) {
-          currentSlide = index;
-          imageCount.textContent = `${currentSlide + 1} / ${thumbs.length}`;
-          thumbs.forEach((thumb, i) => thumb.classList.toggle("active", i === currentSlide));
-        }
-      }, 80);
-    }, { passive: true });
+    document
+      .getElementById("next-image")
+      .addEventListener("click", () => {
+        showSlide(currentSlide + 1);
+      });
 
-    const form = document.getElementById("preorder-form");
-    const formContent = document.getElementById("form-content");
-    const success = document.getElementById("success");
-    const anotherResponse = document.getElementById("another-response");
-    const submitButton = document.getElementById("submit-button");
-    const submitLabel = document.getElementById("submit-label");
-    const formError = document.getElementById("form-error");
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        showSlide(Number(thumb.dataset.slide));
+      });
+    });
+
+    galleryTrack.addEventListener(
+      "scroll",
+      () => {
+        clearTimeout(scrollTimer);
+
+        scrollTimer = setTimeout(() => {
+          const index = Math.round(
+            galleryTrack.scrollLeft /
+            galleryTrack.clientWidth
+          );
+
+          if (index !== currentSlide) {
+            currentSlide = index;
+
+            imageCount.textContent =
+              `${currentSlide + 1} / ${thumbs.length}`;
+
+            thumbs.forEach((thumb, thumbIndex) => {
+              thumb.classList.toggle(
+                "active",
+                thumbIndex === currentSlide
+              );
+            });
+          }
+        }, 80);
+      },
+      { passive: true }
+    );
+
+    sizeOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        const size = option.dataset.size;
+
+        sizeOptions.forEach((item) => {
+          item.classList.toggle(
+            "active",
+            item === option
+          );
+        });
+
+        selectedSizeInput.value = size;
+        selectedSizeLabel.textContent = `Size: ${size}`;
+        formSizeLabel.textContent = size;
+      });
+    });
+
+    personalizeToggle.addEventListener("change", () => {
+      const enabled = personalizeToggle.checked;
+
+      customNameField.classList.toggle(
+        "visible",
+        enabled
+      );
+
+      customName.disabled = !enabled;
+
+      if (enabled) {
+        totalPriceInput.value = "₹4,500";
+
+        priceBreakdown.innerHTML =
+          "₹3,500 + ₹1,000 personalization = " +
+          "<strong>₹4,500 total</strong>";
+
+        customName.focus();
+      } else {
+        customName.value = "";
+        customNameInput.value = "";
+        customNameCount.textContent = "0";
+        totalPriceInput.value = "₹3,500";
+
+        priceBreakdown.innerHTML =
+          "Base price: <strong>₹3,500</strong>";
+      }
+    });
+
+    customName.addEventListener("input", () => {
+      customName.value =
+        customName.value.toUpperCase();
+
+      customNameInput.value =
+        customName.value.trim();
+
+      customNameCount.textContent =
+        customName.value.length;
+    });
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       formError.textContent = "";
+
+      if (
+        personalizeToggle.checked &&
+        !customName.value.trim()
+      ) {
+        formError.textContent =
+          "Please enter the custom jersey name above.";
+
+        customNameField.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+        customName.focus();
+        return;
+      }
+
       submitButton.disabled = true;
       submitLabel.textContent = "Saving…";
 
       try {
-        const data = Object.fromEntries(new FormData(form).entries());
+        const data = Object.fromEntries(
+          new FormData(form).entries()
+        );
+
         await fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
           body: JSON.stringify(data)
         });
+
         form.reset();
+
+        const mediumSize = sizeOptions.find(
+          (option) => option.dataset.size === "M"
+        );
+
+        if (mediumSize) {
+          mediumSize.click();
+        }
+
+        personalizeToggle.checked = false;
+
+        personalizeToggle.dispatchEvent(
+          new Event("change")
+        );
+
         formContent.style.display = "none";
         success.style.display = "flex";
       } catch (error) {
-        formError.textContent = "We could not save your response. Please try again.";
+        formError.textContent =
+          "We could not save your response. Please try again.";
       } finally {
         submitButton.disabled = false;
-        submitLabel.textContent = "Share my interest";
+        submitLabel.textContent =
+          "Submit order interest";
       }
     });
 
