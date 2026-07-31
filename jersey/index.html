@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#050806">
-  <meta name="description" content="Preorder the Official GREEN HOCKEY India Jersey.">
+  <meta
+    name="description"
+    content="Preorder the Official GREEN HOCKEY India Jersey."
+  >
+
   <title>Official GREEN HOCKEY India Jersey</title>
 
   <style>
@@ -14,7 +18,6 @@
       --surface-2: #141b16;
       --line: #263129;
       --green: #32e875;
-      --green-dark: #197c42;
       --white: #f5f8f6;
       --muted: #a9b4ac;
       --black: #020403;
@@ -32,6 +35,7 @@
 
     body {
       min-width: 320px;
+      min-height: 100vh;
       min-height: 100svh;
       margin: 0;
       background:
@@ -54,14 +58,11 @@
     }
 
     button,
-    input,
-    select,
-    textarea {
+    input {
       font: inherit;
     }
 
-    button,
-    .thumb {
+    button {
       cursor: pointer;
     }
 
@@ -75,47 +76,34 @@
       margin: 0 auto;
     }
 
+    /* Centered logo */
     .site-header {
       display: flex;
-      min-height: 84px;
+      min-height: 90px;
       align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+      justify-content: center;
       border-bottom: 1px solid var(--line);
     }
 
     .brand {
       display: flex;
       align-items: center;
+      justify-content: center;
       color: inherit;
       text-decoration: none;
     }
 
     .company-logo {
-      width: clamp(250px, 32vw, 430px);
+      width: clamp(280px, 38vw, 500px);
       height: auto;
-    }
-
-    .header-link {
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: color 180ms ease;
-    }
-
-    .header-link:hover {
-      color: var(--green);
     }
 
     .product {
       display: grid;
-      grid-template-columns: minmax(0, 1.12fr) minmax(360px, 0.88fr);
-      gap: clamp(36px, 6vw, 76px);
+      grid-template-columns: minmax(0, 1.12fr) minmax(340px, 0.88fr);
+      gap: clamp(34px, 6vw, 76px);
       align-items: start;
-      padding: clamp(34px, 5vw, 68px) 0 clamp(58px, 7vw, 96px);
+      padding: clamp(30px, 5vw, 68px) 0 clamp(58px, 7vw, 96px);
     }
 
     .gallery-wrap {
@@ -148,9 +136,9 @@
       min-width: 100%;
       height: clamp(430px, 56vw, 690px);
       place-items: center;
+      background: #eef0ef;
       scroll-snap-align: start;
       scroll-snap-stop: always;
-      background: #eef0ef;
     }
 
     .slide img {
@@ -313,33 +301,6 @@
       outline-offset: 3px;
     }
 
-    .product-info {
-      position: sticky;
-      top: 28px;
-      padding-top: 8px;
-    }
-
-    h1,
-    h2,
-    p {
-      margin-top: 0;
-    }
-
-    h1 {
-      max-width: 550px;
-      margin-bottom: 18px;
-      font-size: clamp(2.2rem, 4vw, 4rem);
-      line-height: 0.98;
-      letter-spacing: -0.065em;
-    }
-
-    .product-copy {
-      margin-bottom: 24px;
-      color: var(--muted);
-      font-size: 1.02rem;
-      line-height: 1.7;
-    }
-
     .price {
       display: flex;
       align-items: baseline;
@@ -376,7 +337,6 @@
       width: 20px;
       min-height: 20px;
       margin: 0;
-      padding: 0;
       accent-color: var(--green);
     }
 
@@ -401,6 +361,13 @@
 
     .custom-name-field.visible {
       display: grid;
+      gap: 8px;
+    }
+
+    .custom-name-field > span:first-child {
+      color: #dce3de;
+      font-size: 0.8rem;
+      font-weight: 700;
     }
 
     .custom-name-meta {
@@ -436,7 +403,6 @@
       border-radius: 12px;
       background: var(--green);
       color: var(--black);
-      cursor: pointer;
       font-weight: 900;
       letter-spacing: 0.04em;
       text-decoration: none;
@@ -452,14 +418,6 @@
       color: var(--green);
     }
 
-    .preorder-button:focus-visible,
-    .submit-button:focus-visible,
-    .secondary-button:focus-visible,
-    input:focus {
-      outline: 3px solid var(--white);
-      outline-offset: 4px;
-    }
-
     .preorder-button svg,
     .submit-button svg {
       width: 20px;
@@ -468,6 +426,33 @@
       stroke-linecap: round;
       stroke-linejoin: round;
       stroke-width: 2;
+    }
+
+    .product-info {
+      position: sticky;
+      top: 28px;
+      padding-top: 8px;
+    }
+
+    h1,
+    h2,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 550px;
+      margin-bottom: 18px;
+      font-size: clamp(2rem, 3.4vw, 3.45rem);
+      line-height: 1;
+      letter-spacing: -0.055em;
+    }
+
+    .product-copy {
+      margin-bottom: 24px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.7;
     }
 
     .form-section {
@@ -524,18 +509,6 @@
       background: var(--surface);
     }
 
-    .form-card::after {
-      position: absolute;
-      right: -78px;
-      bottom: -82px;
-      width: 200px;
-      height: 200px;
-      border: 36px solid var(--surface-2);
-      border-radius: 50%;
-      content: "";
-      pointer-events: none;
-    }
-
     .form-top,
     form,
     .success {
@@ -559,7 +532,7 @@
 
     .optional {
       padding: 7px 10px;
-      border: 1px solid var(--green-dark);
+      border: 1px solid #197c42;
       border-radius: 999px;
       color: var(--green);
       font-size: 0.65rem;
@@ -579,7 +552,7 @@
       gap: 15px;
     }
 
-    label {
+    .field-row label {
       display: grid;
       gap: 8px;
     }
@@ -613,6 +586,11 @@
       box-shadow: 0 0 0 3px rgba(50, 232, 117, 0.13);
     }
 
+    .submit-button,
+    .secondary-button {
+      cursor: pointer;
+    }
+
     .submit-button:disabled {
       opacity: 0.65;
       cursor: wait;
@@ -643,7 +621,7 @@
 
     .success {
       display: none;
-      min-height: 480px;
+      min-height: 400px;
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
@@ -707,15 +685,11 @@
       }
 
       .site-header {
-        min-height: 68px;
+        min-height: 76px;
       }
 
       .company-logo {
-        width: min(68vw, 290px);
-      }
-
-      .header-link {
-        font-size: 0.68rem;
+        width: min(80vw, 340px);
       }
 
       .product {
@@ -755,7 +729,7 @@
       }
 
       h1 {
-        font-size: clamp(2rem, 9.5vw, 2.85rem);
+        font-size: clamp(2rem, 9vw, 2.7rem);
       }
 
       .form-layout {
@@ -816,11 +790,11 @@
   <div class="page-shell">
     <header class="site-header">
       <a class="brand" href="#" aria-label="Green Hockey home">
-        <img class="company-logo" src="logo.png" alt="GREEN.HOCKEY">
-      </a>
-
-      <a class="header-link" href="#preorder-form-section">
-        Preorder interest
+        <img
+          class="company-logo"
+          src="logo.png"
+          alt="GREEN.HOCKEY"
+        >
       </a>
     </header>
 
@@ -852,7 +826,7 @@
               <div class="slide">
                 <img
                   src="jersey 1.png"
-                  alt="Front and back product view of the Official Green Hockey India Jersey"
+                  alt="Front and back view of the Official Green Hockey India Jersey"
                 >
               </div>
             </div>
@@ -903,7 +877,7 @@
               class="thumb"
               type="button"
               data-slide="2"
-              aria-label="Show front and back product view"
+              aria-label="Show jersey product view"
             >
               <img src="jersey 1.png" alt="">
             </button>
@@ -945,7 +919,7 @@
 
             <p class="price">
               <strong>₹3,500</strong>
-              <span>Preorder price</span>
+              <span>Base price</span>
             </p>
 
             <div class="personalize">
@@ -954,12 +928,17 @@
 
                 <span>
                   Add a custom jersey name · +₹1,000
-                  <small>Personalise the back of your jersey.</small>
+                  <small>
+                    Personalise the back of your jersey.
+                  </small>
                 </span>
               </label>
 
-              <label class="custom-name-field" id="custom-name-field">
-                <span>Custom name</span>
+              <label
+                class="custom-name-field"
+                id="custom-name-field"
+              >
+                <span>Custom jersey name</span>
 
                 <input
                   id="custom-name"
@@ -972,7 +951,6 @@
 
                 <span class="custom-name-meta">
                   <span>Printed in uppercase</span>
-
                   <span>
                     <b id="custom-name-count">0</b> / 8
                   </span>
@@ -980,11 +958,15 @@
               </label>
 
               <p class="price-breakdown" id="price-breakdown">
-                Base price: <strong>₹3,500</strong>
+                Base price:
+                <strong>₹3,500</strong>
               </p>
             </div>
 
-            <a class="preorder-button" href="#preorder-form-section">
+            <a
+              class="preorder-button"
+              href="#preorder-form-section"
+            >
               Order now
 
               <svg aria-hidden="true" viewBox="0 0 24 24">
@@ -1000,8 +982,8 @@
           </h1>
 
           <p class="product-copy">
-            The official India jersey from GREEN.HOCKEY, made for supporters
-            who want to carry the spirit of the game.
+            The official India jersey from GREEN.HOCKEY, made for
+            supporters who want to carry the spirit of the game.
           </p>
         </div>
       </section>
@@ -1013,22 +995,22 @@
       >
         <div class="form-layout">
           <div class="form-intro">
-            <p class="eyebrow">Reserve your interest</p>
+            <p class="eyebrow">Order details</p>
 
             <h2 id="form-title">
-              Get on the preorder list.
+              Enter your contact details.
             </h2>
 
             <p>
-              Share your contact details and we will follow up about your
-              selected size.
+              Share your details and we will contact you about your
+              jersey order.
             </p>
           </div>
 
           <div class="form-card">
             <div id="form-content">
               <div class="form-top">
-                <h3>Your preorder interest</h3>
+                <h3>Your order details</h3>
                 <span class="optional">GREEN HOCKEY</span>
               </div>
 
@@ -1051,7 +1033,7 @@
                   id="total-price-input"
                   name="totalPrice"
                   type="hidden"
-                  value="₹3,500"
+                  value="3500"
                 >
 
                 <div class="field-row">
@@ -1095,7 +1077,9 @@
                   type="submit"
                   id="submit-button"
                 >
-                  <span id="submit-label">Submit order interest</span>
+                  <span id="submit-label">
+                    Submit order
+                  </span>
 
                   <svg aria-hidden="true" viewBox="0 0 24 24">
                     <path d="M5 12h14M13 6l6 6-6 6"></path>
@@ -1105,6 +1089,8 @@
                 <p class="form-note">
                   Selected size:
                   <strong id="form-size-label">M</strong>
+                  · Total:
+                  <strong id="form-total-label">₹3,500</strong>
                 </p>
 
                 <p
@@ -1121,13 +1107,15 @@
               role="status"
               aria-live="polite"
             >
-              <span class="success-icon" aria-hidden="true">✓</span>
+              <span class="success-icon" aria-hidden="true">
+                ✓
+              </span>
 
-              <h3>You are on the list.</h3>
+              <h3>Your order was submitted.</h3>
 
               <p>
-                Thanks for your interest in the Official GREEN HOCKEY India
-                Jersey.
+                Thanks for your interest in the Official GREEN HOCKEY
+                India Jersey. We will contact you with the next steps.
               </p>
 
               <button
@@ -1135,7 +1123,7 @@
                 type="button"
                 id="another-response"
               >
-                Add another response
+                Add another order
               </button>
             </div>
           </div>
@@ -1145,7 +1133,7 @@
 
     <footer>
       <span>Green Hockey</span>
-      <span>Official India Jersey · Preorder interest</span>
+      <span>Official India Jersey</span>
     </footer>
   </div>
 
@@ -1153,9 +1141,18 @@
     const GOOGLE_SCRIPT_URL =
       "https://script.google.com/macros/s/AKfycbwYQcZHdT7GauTfGD8jGy2wWSR3vQ4dGwfYCWrKnFCxEDktDPeBLOIXJHV2V5-Mr_uUDw/exec";
 
-    const galleryTrack = document.getElementById("gallery-track");
-    const imageCount = document.getElementById("image-count");
-    const thumbs = [...document.querySelectorAll(".thumb")];
+    const BASE_PRICE = 3500;
+    const PERSONALIZATION_PRICE = 1000;
+
+    const galleryTrack =
+      document.getElementById("gallery-track");
+
+    const imageCount =
+      document.getElementById("image-count");
+
+    const thumbs = [
+      ...document.querySelectorAll(".thumb")
+    ];
 
     const sizeOptions = [
       ...document.querySelectorAll(".size-option")
@@ -1188,6 +1185,9 @@
     const totalPriceInput =
       document.getElementById("total-price-input");
 
+    const formTotalLabel =
+      document.getElementById("form-total-label");
+
     const priceBreakdown =
       document.getElementById("price-breakdown");
 
@@ -1215,12 +1215,22 @@
     let currentSlide = 0;
     let scrollTimer;
 
+    function formatPrice(price) {
+      return new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 0
+      }).format(price);
+    }
+
     function showSlide(index) {
       currentSlide =
         (index + thumbs.length) % thumbs.length;
 
       galleryTrack.scrollTo({
-        left: galleryTrack.clientWidth * currentSlide,
+        left:
+          galleryTrack.clientWidth *
+          currentSlide,
         behavior: "smooth"
       });
 
@@ -1233,6 +1243,33 @@
           index === currentSlide
         );
       });
+    }
+
+    function updatePrice() {
+      const personalised =
+        personalizeToggle.checked;
+
+      const totalPrice =
+        BASE_PRICE +
+        (personalised
+          ? PERSONALIZATION_PRICE
+          : 0);
+
+      totalPriceInput.value =
+        String(totalPrice);
+
+      formTotalLabel.textContent =
+        formatPrice(totalPrice);
+
+      if (personalised) {
+        priceBreakdown.innerHTML =
+          `${formatPrice(BASE_PRICE)} + ` +
+          `${formatPrice(PERSONALIZATION_PRICE)} personalization = ` +
+          `<strong>${formatPrice(totalPrice)} total</strong>`;
+      } else {
+        priceBreakdown.innerHTML =
+          `Base price: <strong>${formatPrice(BASE_PRICE)}</strong>`;
+      }
     }
 
     document
@@ -1249,9 +1286,71 @@
 
     thumbs.forEach((thumb) => {
       thumb.addEventListener("click", () => {
-        showSlide(Number(thumb.dataset.slide));
+        showSlide(
+          Number(thumb.dataset.slide)
+        );
       });
     });
+
+    sizeOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        const size = option.dataset.size;
+
+        sizeOptions.forEach((item) => {
+          item.classList.toggle(
+            "active",
+            item === option
+          );
+        });
+
+        selectedSizeInput.value = size;
+        selectedSizeLabel.textContent =
+          `Size: ${size}`;
+        formSizeLabel.textContent = size;
+      });
+    });
+
+    personalizeToggle.addEventListener(
+      "change",
+      () => {
+        const enabled =
+          personalizeToggle.checked;
+
+        customNameField.classList.toggle(
+          "visible",
+          enabled
+        );
+
+        customName.disabled = !enabled;
+
+        if (enabled) {
+          customName.focus();
+        } else {
+          customName.value = "";
+          customNameInput.value = "";
+          customNameCount.textContent = "0";
+        }
+
+        updatePrice();
+      }
+    );
+
+    customName.addEventListener(
+      "input",
+      () => {
+        const cleanedName =
+          customName.value
+            .toUpperCase()
+            .slice(0, 8);
+
+        customName.value = cleanedName;
+        customNameInput.value =
+          cleanedName.trim();
+
+        customNameCount.textContent =
+          String(cleanedName.length);
+      }
+    );
 
     galleryTrack.addEventListener(
       "scroll",
@@ -1270,144 +1369,131 @@
             imageCount.textContent =
               `${currentSlide + 1} / ${thumbs.length}`;
 
-            thumbs.forEach((thumb, thumbIndex) => {
-              thumb.classList.toggle(
-                "active",
-                thumbIndex === currentSlide
-              );
-            });
+            thumbs.forEach(
+              (thumb, thumbIndex) => {
+                thumb.classList.toggle(
+                  "active",
+                  thumbIndex === currentSlide
+                );
+              }
+            );
           }
         }, 80);
       },
       { passive: true }
     );
 
-    sizeOptions.forEach((option) => {
-      option.addEventListener("click", () => {
-        const size = option.dataset.size;
+    form.addEventListener(
+      "submit",
+      async (event) => {
+        event.preventDefault();
+        formError.textContent = "";
 
-        sizeOptions.forEach((item) => {
-          item.classList.toggle(
-            "active",
-            item === option
-          );
-        });
+        if (
+          personalizeToggle.checked &&
+          !customName.value.trim()
+        ) {
+          formError.textContent =
+            "Please enter the custom jersey name.";
 
-        selectedSizeInput.value = size;
-        selectedSizeLabel.textContent = `Size: ${size}`;
-        formSizeLabel.textContent = size;
-      });
-    });
+          customNameField.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
 
-    personalizeToggle.addEventListener("change", () => {
-      const enabled = personalizeToggle.checked;
-
-      customNameField.classList.toggle(
-        "visible",
-        enabled
-      );
-
-      customName.disabled = !enabled;
-
-      if (enabled) {
-        totalPriceInput.value = "₹4,500";
-
-        priceBreakdown.innerHTML =
-          "₹3,500 + ₹1,000 personalization = " +
-          "<strong>₹4,500 total</strong>";
-
-        customName.focus();
-      } else {
-        customName.value = "";
-        customNameInput.value = "";
-        customNameCount.textContent = "0";
-        totalPriceInput.value = "₹3,500";
-
-        priceBreakdown.innerHTML =
-          "Base price: <strong>₹3,500</strong>";
-      }
-    });
-
-    customName.addEventListener("input", () => {
-      customName.value =
-        customName.value.toUpperCase();
-
-      customNameInput.value =
-        customName.value.trim();
-
-      customNameCount.textContent =
-        customName.value.length;
-    });
-
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      formError.textContent = "";
-
-      if (
-        personalizeToggle.checked &&
-        !customName.value.trim()
-      ) {
-        formError.textContent =
-          "Please enter the custom jersey name above.";
-
-        customNameField.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-
-        customName.focus();
-        return;
-      }
-
-      submitButton.disabled = true;
-      submitLabel.textContent = "Saving…";
-
-      try {
-        const data = Object.fromEntries(
-          new FormData(form).entries()
-        );
-
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-          },
-          body: JSON.stringify(data)
-        });
-
-        form.reset();
-
-        const mediumSize = sizeOptions.find(
-          (option) => option.dataset.size === "M"
-        );
-
-        if (mediumSize) {
-          mediumSize.click();
+          customName.focus();
+          return;
         }
 
-        personalizeToggle.checked = false;
-
-        personalizeToggle.dispatchEvent(
-          new Event("change")
-        );
-
-        formContent.style.display = "none";
-        success.style.display = "flex";
-      } catch (error) {
-        formError.textContent =
-          "We could not save your response. Please try again.";
-      } finally {
-        submitButton.disabled = false;
+        submitButton.disabled = true;
         submitLabel.textContent =
-          "Submit order interest";
-      }
-    });
+          "Saving...";
 
-    anotherResponse.addEventListener("click", () => {
-      success.style.display = "none";
-      formContent.style.display = "block";
-    });
+        try {
+          const formData =
+            new FormData(form);
+
+          const data = {
+            name:
+              String(
+                formData.get("name") || ""
+              ).trim(),
+
+            email:
+              String(
+                formData.get("email") || ""
+              ).trim(),
+
+            phone:
+              String(
+                formData.get("phone") || ""
+              ).trim(),
+
+            size:
+              selectedSizeInput.value,
+
+            customName:
+              customNameInput.value,
+
+            totalPrice:
+              totalPriceInput.value
+          };
+
+          await fetch(
+            GOOGLE_SCRIPT_URL,
+            {
+              method: "POST",
+              mode: "no-cors",
+              headers: {
+                "Content-Type":
+                  "text/plain;charset=utf-8"
+              },
+              body: JSON.stringify(data)
+            }
+          );
+
+          form.reset();
+
+          const defaultSize =
+            sizeOptions.find(
+              (option) =>
+                option.dataset.size === "M"
+            );
+
+          if (defaultSize) {
+            defaultSize.click();
+          }
+
+          personalizeToggle.checked = false;
+
+          personalizeToggle.dispatchEvent(
+            new Event("change")
+          );
+
+          formContent.style.display = "none";
+          success.style.display = "flex";
+        } catch (error) {
+          console.error(error);
+
+          formError.textContent =
+            "We could not save your order. Please try again.";
+        } finally {
+          submitButton.disabled = false;
+          submitLabel.textContent =
+            "Submit order";
+        }
+      }
+    );
+
+    anotherResponse.addEventListener(
+      "click",
+      () => {
+        success.style.display = "none";
+        formContent.style.display = "block";
+      }
+    );
+
+    updatePrice();
   </script>
 </body>
 </html>
